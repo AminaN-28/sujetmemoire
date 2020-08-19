@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"
+         />
+
+
+    <TextView
+        android:id="@+id/topText"
+        android:layout_width="match_parent"
+        android:layout_height="154dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="casual"
+        android:padding="10dp"
+        android:text="Welcome My dear To Blood Line App.\nCan I have your number?"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints" />
+
+
+    <!--This is the first Step-->
+    <RelativeLayout
+        android:layout_width="365dp"
+        android:layout_height="434dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="95dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="Full Name" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/fullname"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_backgroung"
+            android:gravity="center"
+            android:hint="Enter Your name"
+            android:inputType="text" />
+
+
+        <TextView
+            android:id="@+id/usernumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_marginTop="2dp"
+            android:padding="4dp"
+            android:text="Phone Number" />
+
+
+        <EditText
+            android:id="@+id/userPhone"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/usernumber"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_backgroung"
+            android:gravity="center"
+            android:hint="Enter Your Phone Number "
+            android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userPhone"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="Password" />
+
+        <EditText
+            android:id="@+id/userpassword"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/password"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_backgroung"
+            android:gravity="center"
+            android:hint="Define Your Password"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userpassword"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="City" />
+
+        <EditText
+            android:id="@+id/usercity"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/city"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_backgroung"
+            android:gravity="center"
+            android:hint="Enter Your City " />
+
+        <TextView
+            android:id="@+id/grpeS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usercity"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:text="Blood Group" />
+
+        <EditText
+            android:id="@+id/bloodgroup"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/grpeS"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_backgroung"
+            android:gravity="center"
+            android:hint="Enter Your Blood Group " />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="59dp"
+        android:text="Already registered? Login now"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:id="@+id/logindirct"/>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="110dp"
+        android:background="@drawable/button_background"
+        android:text="Be a donor!"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+
+    <!--This is second step-->
+
+
+
+</RelativeLayout>
