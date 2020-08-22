@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.bloodlineapp">
-
+    <!-- Permissions for maps -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,15 +10,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Event"></activity>
-        <activity android:name=".MapsActivity" />
-        <activity android:name=".Signet" />
-        <activity android:name=".Parameter" />
-        <activity android:name=".NotificatonAct" />
-        <activity android:name=".SearchAct" />
-        <activity android:name=".Profil" />
-        <activity android:name=".Dashboared" />
-        <activity android:name=".WriteAlert" />
+        <activity android:name=".SlideActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Event"
+            android:parentActivityName=".Home" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".Signet"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".Parameter"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".NotificatonAct"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".SearchAct"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".Profil"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".Dashboared"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".WriteAlert"
+            android:parentActivityName=".Home" />
         <activity android:name=".Home" />
         <activity android:name=".Connect" />
         <activity android:name=".OTPVerify" />
@@ -29,6 +57,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCbFYellohvrIoyOkcLDe5y7gd3NccXO2Y" />
     </application>
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
+        tools:ignore="WrongManifestParent" />
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        tools:ignore="WrongManifestParent" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 </manifest>
