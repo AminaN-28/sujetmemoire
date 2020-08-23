@@ -113,11 +113,12 @@ public class SlideViewpager extends PagerAdapter {
                 ind5.setImageResource(R.drawable.unselected);
                 ind6.setImageResource(R.drawable.unselected);
 
-                title.setText("Social Interaction");
+                title.setText("Social Interaction!");
                 desc.setText("Interact with other donors or recipients." +
                         "As much as we complain about other people, there is nothing worse for mental health than a social desert.");
                 back.setVisibility(View.VISIBLE);
-                next.setVisibility(View.GONE);
+                next.setVisibility(View.VISIBLE);
+                break;
 
             case 3:
                 logo.setImageResource(R.drawable.socialinteraction);
@@ -128,10 +129,11 @@ public class SlideViewpager extends PagerAdapter {
                 ind5.setImageResource(R.drawable.unselected);
                 ind6.setImageResource(R.drawable.unselected);
 
-                title.setText("Make alert");
+                title.setText("Make alert!");
                 desc.setText("If You need blood donation Make an alert and share it.");
                 back.setVisibility(View.VISIBLE);
-                next.setVisibility(View.GONE);
+                next.setVisibility(View.VISIBLE);
+                break;
 
 
             case 4:
@@ -143,10 +145,10 @@ public class SlideViewpager extends PagerAdapter {
                 ind5.setImageResource(R.drawable.selected);
                 ind6.setImageResource(R.drawable.unselected);
 
-                title.setText("Answer to alert");
-                desc.setText("React to Alert");
+                title.setText("Answer to alert!");
+                desc.setText("React to Alert.");
                 back.setVisibility(View.VISIBLE);
-                next.setVisibility(View.GONE);
+                next.setVisibility(View.VISIBLE);
 
 
 
@@ -159,7 +161,7 @@ public class SlideViewpager extends PagerAdapter {
                 ind5.setImageResource(R.drawable.unselected);
                 ind6.setImageResource(R.drawable.selected);
 
-                title.setText("Help Others");
+                title.setText("Help Others!");
                 desc.setText("You have not lived today until you have done something for someone who can never repay you.");
                 back.setVisibility(View.VISIBLE);
                 next.setVisibility(View.GONE);
