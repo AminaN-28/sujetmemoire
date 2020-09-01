@@ -44,4 +44,15 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
+    dependencies {
+        // ...
+
+        // Add the dependencies for the Firebase Cloud Messaging and Analytics libraries
+        implementation 'com.google.firebase:firebase-messaging:20.2.4'
+        implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    }
+
+// Getting a "Could not find" error? Make sure that you've added
+// Google's Maven repository to your project-level build.gradle file
+
 }

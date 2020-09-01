@@ -57,15 +57,20 @@ public class OTPVerify extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         mDatabase = database.getReference(USERS);
-        // mCurrentUser = mAuth.getCurrentUser();
 
+        final String pinViewRec = pinView.getText().toString();
+        // mCurrentUser = mAuth.getCurrentUser();
         Verifybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
+                if (pinViewRec!= null){
+               // signInWithPhoneAuthCredential(credential);
+                //mCallbacks;
+                    Intent gohome = new Intent(OTPVerify.this, Home.class);
+                    startActivity(gohome);
+                }
 
-                Intent gohome = new Intent(OTPVerify.this, Home.class);
-                startActivity(gohome);
             }
         });
 
@@ -78,7 +83,9 @@ public class OTPVerify extends AppCompatActivity {
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
-                Log.d("TaggA", "onVerificationCompleted:" + credential);
+
+                //  print(credential.getSmsCode());
+                Log.d("Pokemon2", "onVerificationCompleted:" + credential.getSmsCode());
 
                 signInWithPhoneAuthCredential(credential);
             }
@@ -88,7 +95,7 @@ public class OTPVerify extends AppCompatActivity {
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
-                Log.w("TAG", "onVerificationFailed", e);
+                Log.w("Pokemon35", "onVerificationFailed", e);
                 // Toast.makeText(Login.this, "Phone Number format invalid", Toast.LENGTH_LONG).show();
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
@@ -109,7 +116,7 @@ public class OTPVerify extends AppCompatActivity {
                 // The SMS verification code has been sent to the provided phone number, we
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
-                Log.d("TAG", "onCodeSent:" + verificationId);
+                Log.d("pokemon", "onCodeSent:" + verificationId);
                 // FirebaseUser user = mAuth.getCurrentUser();
                 //updateUI(user);
 
@@ -150,14 +157,17 @@ public class OTPVerify extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "signInWithCredential:success");
+                            Log.d("Pokemon2", "signInWithCredential:success");
+                           // Intent intent = new Intent(OTPVerify.this, Home.class);
+                            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            //startActivity(intent);
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            // updateUI(user);
 
                             // ...
                         } else {
                             // Sign in failed, display a message and update the UI
-                            Log.w("TAG", "signInWithCredential:failure", task.getException());
+                            Log.w("Pokemon3", "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                             }

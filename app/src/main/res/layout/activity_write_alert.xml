@@ -25,32 +25,34 @@
         android:fontFamily="casual"
         android:gravity="center"
         android:padding="15dp"
-        android:text="Write Your Alert Here !"
+        android:text="Write a heart felt message and somebody will definely help you if possible!"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
-        android:layout_width="match_parent"
         android:id="@+id/makerequest"
-        android:layout_height="66dp"
+        android:layout_width="328dp"
+        android:layout_height="131dp"
+        android:layout_below="@+id/topText"
         android:layout_centerInParent="true"
+        android:layout_marginTop="46dp"
         android:background="@drawable/edittext_backgroung"
         android:gravity="center"
-        android:hint="Write Your Request Here"
-        android:layout_below="@+id/topText"/>
+        android:hint="Write Your Request Here" />
 
     <Button
+        android:id="@+id/publishbtn"
         android:layout_width="195dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/makerequest"
+        android:layout_centerVertical="true"
         android:layout_centerInParent="true"
+        android:layout_marginTop="205dp"
         android:background="@drawable/button_background"
         android:padding="5dp"
         android:text="Make A Request"
-        android:textColor="@color/white"
-        android:id="@+id/publishbtn"/>
-
+        android:textColor="@color/white" />
 
 
 </RelativeLayout>

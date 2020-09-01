@@ -2,23 +2,15 @@ package com.example.bloodlineapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 
 public class Connect extends AppCompatActivity {
 
@@ -44,30 +36,39 @@ public class Connect extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        final PhoneAuthCredential credential = PhoneAuthProvider.getCredential(fullname, password);
+// final PhoneAuthCredential credential = PhoneAuthProvider.getCredential(fullname, password);
 
         //checking if user is logged in
-        if (mAuth.getCurrentUser() != null) {
+       /* if (mAuth.getCurrentUser() != null) {
             updateUI(mAuth.getCurrentUser());
-        }
+        }*/
+
+        final  String username = getIntent().getStringExtra("nom");
+        final String userpassword = getIntent().getStringExtra("password");
 
         connectbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fullname = fname.getText().toString();
-
                 password = pwd.getText().toString();
 
-                signInWithPhoneAuthCredential(credential);
+                if (password.matches(userpassword) && fullname.matches(username))
+                {
+                    Intent HomePge = new Intent(getApplicationContext(), Home.class);
+                    startActivity(HomePge);
+                    Toast.makeText(Connect.this, "Connect success", Toast.LENGTH_LONG).show();
+                }
 
-                Toast.makeText(Connect.this, "Connect success", Toast.LENGTH_LONG).show();
+                //signInWithPhoneAuthCredential(credential);
+
+
             }
         });
     }
 
 
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    /*private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -87,14 +88,14 @@ public class Connect extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
 
-    private void updateUI(FirebaseUser currentUser) {
+   /* private void updateUI(FirebaseUser currentUser) {
         Intent HomePge = new Intent(getApplicationContext(), Home.class);
         HomePge.putExtra("phone", currentUser.getPhoneNumber());
         Log.v("DATA", currentUser.getUid());
         startActivity(HomePge);
 
-    }
+    }*/
 
 }
