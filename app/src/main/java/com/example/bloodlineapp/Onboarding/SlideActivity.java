@@ -1,4 +1,4 @@
-package com.example.bloodlineapp;
+package com.example.bloodlineapp.Onboarding;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import com.example.bloodlineapp.R;
 
 public class SlideActivity extends AppCompatActivity {
     public static ViewPager viewPager;

@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SlideActivity">
+        <activity android:name=".Onboarding.SlideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,38 +19,38 @@
         </activity>
 
         <activity
-            android:name=".Event"
-            android:parentActivityName=".Home" />
+            android:name=".AppDetails.Event"
+            android:parentActivityName=".AppDetails.Home" />
 
         <activity
-            android:name=".MapsActivity"
-            android:parentActivityName=".Home" />
+            android:name=".AppDetails.MapsActivity"
+            android:parentActivityName=".AppDetails.Home" />
         <activity
-            android:name=".Signet"
-            android:parentActivityName=".Home" />
+            android:name=".AppDetails.Signet"
+            android:parentActivityName=".AppDetails.Home" />
         <activity
-            android:name=".Parameter"
-            android:parentActivityName=".Home" />
+            android:name=".AppDetails.Parameter"
+            android:parentActivityName=".AppDetails.Home" />
         <activity
-            android:name=".NotificatonAct"
-            android:parentActivityName=".Home" />
+            android:name=".AppDetails.NotificatonAct"
+            android:parentActivityName=".AppDetails.Home" />
         <activity
-            android:name=".SearchAct"
-            android:parentActivityName=".Home" />
+            android:name=".AppDetails.SearchAct"
+            android:parentActivityName=".AppDetails.Home" />
         <activity
-            android:name=".Profil"
-            android:parentActivityName=".Home" />
+            android:name=".AppDetails.Profil"
+            android:parentActivityName=".AppDetails.Home" />
         <activity
-            android:name=".Dashboared"
-            android:parentActivityName=".Home" />
+            android:name=".AppDetails.Dashboared"
+            android:parentActivityName=".AppDetails.Home" />
         <activity
-            android:name=".WriteAlert"
-            android:parentActivityName=".Home" />
-        <activity android:name=".Home" />
-        <activity android:name=".Connect" />
-        <activity android:name=".OTPVerify" />
-        <activity android:name=".Login" />
-        <activity android:name=".MainActivity">
+            android:name=".AppDetails.WriteAlert"
+            android:parentActivityName=".AppDetails.Home" />
+        <activity android:name=".AppDetails.Home" />
+        <activity android:name=".Login.Connect" />
+        <activity android:name=".Login.OTPVerify" />
+        <activity android:name=".Login.Login" />
+        <activity android:name=".Onboarding.MainActivity">
             <!--intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

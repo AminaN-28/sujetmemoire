@@ -1,4 +1,4 @@
-package com.example.bloodlineapp;
+package com.example.bloodlineapp.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chaos.view.PinView;
+import com.example.bloodlineapp.AppDetails.Home;
+import com.example.bloodlineapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -20,6 +23,9 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -38,13 +44,13 @@ public class OTPVerify extends AppCompatActivity {
 
     private FirebaseAuth mAuth; //Create an instance of FirebaseAuth
 
-    //private FirebaseUser mCurrentUser;//for member variable
+    private FirebaseUser mCurrentUser;//for member variable
 
-    private FirebaseDatabase database;
+    private FirebaseDatabase database, mDBase;
 
     private DatabaseReference mDatabase;
 
-
+      String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +64,10 @@ public class OTPVerify extends AppCompatActivity {
 
         mDatabase = database.getReference(USERS);
 
+        mCurrentUser = mAuth.getCurrentUser();
+
         final String pinViewRec = pinView.getText().toString();
-        // mCurrentUser = mAuth.getCurrentUser();
+
         Verifybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -68,19 +76,24 @@ public class OTPVerify extends AppCompatActivity {
                // signInWithPhoneAuthCredential(credential);
                 //mCallbacks;
                     Intent gohome = new Intent(OTPVerify.this, Home.class);
+                    getUser();
+                    gohome.putExtra("nom", username);
                     startActivity(gohome);
                 }
 
             }
         });
+        /******A FAIREEEEEEEEEEEEEEEEEEEEEEEE ********/
+        //LIBRAIRE TIME pour pouvoir avoir 2j avant 4j avant etc
+        //Creer une base de donnée locale pour pouvoir recuperer son nom et son prenom en locale et pouvoir afficher le nom du user lors de l'alerte.
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
-            public void onVerificationCompleted(PhoneAuthCredential credential) {
+            public void onVerificationCompleted(PhoneAuthCredential credential) {// si le numero de telephone a ete verifie avec succes
                 // This callback will be invoked in two situations:
                 // 1 - Instant verification. In some cases the phone number can be instantly
                 //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                // 2 - Auto-retrieval. On some devices Google Play services can automatically.
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
 
@@ -136,11 +149,17 @@ public class OTPVerify extends AppCompatActivity {
     }
 
     private void Verify(){
-        final  String username = getIntent().getStringExtra("nom");
+         username = getIntent().getStringExtra("nom");
         final String userpassword = getIntent().getStringExtra("password");
         final String useraddress = getIntent().getStringExtra("address");
         final String userphone = getIntent().getStringExtra("phonenumber");
-        final  String userBloodG = getIntent().getStringExtra("groupS");
+        final  String userBloodG = getIntent().getStringExtra("groupeS");
+        final  String userweight = getIntent().getStringExtra("weight");
+        final  String userage = getIntent().getStringExtra("age");
+
+        User user = new User(username, useraddress, userphone, userpassword, userBloodG, userweight, userage);
+        String id = mDatabase.push().getKey(); //donner une clé d'identification au user
+        mDatabase.child(mCurrentUser.getUid()).setValue(user); //
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+221" +userphone,        // Phone number to verify
                 60,                 // Timeout duration
@@ -158,16 +177,20 @@ public class OTPVerify extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Pokemon2", "signInWithCredential:success");
-                           // Intent intent = new Intent(OTPVerify.this, Home.class);
+
+                            // Intent intent = new Intent(OTPVerify.this, Home.class);
                             //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             //startActivity(intent);
                             FirebaseUser user = mAuth.getCurrentUser();
+                            getUser();
+
                             // updateUI(user);
 
                             // ...
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w("Pokemon3", "signInWithCredential:failure", task.getException());
+
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                             }
@@ -183,5 +206,41 @@ public class OTPVerify extends AppCompatActivity {
         startActivity(loginIntent);
     }
 
+
+    private void getUser(){
+        mAuth = FirebaseAuth.getInstance();//initialisation of instance
+        mCurrentUser = mAuth.getCurrentUser();
+
+        mDBase = FirebaseDatabase.getInstance();
+        DatabaseReference mGetReference = mDBase.getReference().child("users").child(mCurrentUser.getUid());
+        Log.d("salut", mCurrentUser.getUid());
+
+        mGetReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Log.d("salut", snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
 }

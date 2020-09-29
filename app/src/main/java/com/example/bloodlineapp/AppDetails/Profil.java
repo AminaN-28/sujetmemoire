@@ -1,8 +1,10 @@
-package com.example.bloodlineapp;
+package com.example.bloodlineapp.AppDetails;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.bloodlineapp.R;
 
 public class Profil extends AppCompatActivity {
 

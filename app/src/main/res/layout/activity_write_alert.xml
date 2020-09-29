@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WriteAlert">
+    tools:context=".AppDetails.WriteAlert">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background" />
 
     <TextView
         android:id="@+id/topText"
-        android:layout_width="391dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="168dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
@@ -26,8 +20,7 @@
         android:gravity="center"
         android:padding="15dp"
         android:text="Write a heart felt message and somebody will definely help you if possible!"
-        android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
@@ -41,6 +34,34 @@
         android:gravity="center"
         android:hint="Write Your Request Here" />
 
+    <TextView
+        android:layout_width="373dp"
+        android:layout_height="53dp"
+        android:layout_below="@+id/makerequest"
+        android:text="CHOOSE THE BLOOD GROUP YOU NEED:"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textFontWeight="5"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="126dp"
+        android:layout_below="@+id/makerequest"
+        android:layout_marginTop="77dp">
+
+        <Spinner
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:id="@+id/spinner_blood"
+            android:spinnerMode="dialog"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="56dp"
+            android:layout_marginStart="67dp"
+            android:layout_alignParentLeft="true"/>
+
+    </RelativeLayout>
+
     <Button
         android:id="@+id/publishbtn"
         android:layout_width="195dp"
@@ -48,7 +69,7 @@
         android:layout_below="@+id/makerequest"
         android:layout_centerVertical="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="205dp"
+        android:layout_marginTop="300dp"
         android:background="@drawable/button_background"
         android:padding="5dp"
         android:text="Make A Request"

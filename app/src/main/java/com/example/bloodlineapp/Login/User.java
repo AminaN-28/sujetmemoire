@@ -1,4 +1,4 @@
-package com.example.bloodlineapp;
+package com.example.bloodlineapp.Login;
 
 public class User  {
 
@@ -13,6 +13,11 @@ public class User  {
     private String blood;
 
 
+    private String age;
+
+    private String weight;
+
+
     public User(){}
 
     public User(String fullName, String phone) {
@@ -21,7 +26,11 @@ public class User  {
         this.phone = phone;
     }
 
-    public User(String fullName, String address, String phone,String password, String blood) {
+    public User(String fullName, String address, String phone,String password, String blood, String weight, String age) {
+
+        this.age = age ;
+
+        this.weight = weight;
 
         this.fullName = fullName;
 
@@ -66,6 +75,11 @@ public class User  {
     public String getBlood(){return blood;}
     public void setBlood(String blood){this.blood = blood;}
 
+    public String getAge(){ return age;}
+    public void setAge (String age){this.age = age; }
+
+    public String getWeight(){return  weight;}
+    public void setWeight(String weight){this.weight = weight; }
 
 
 

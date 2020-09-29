@@ -4,20 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".AppDetails.Home">
 
-    <ImageView
+    <ListView android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background" />
+        android:id="@+id/listView"
+        android:scrollbarAlwaysDrawVerticalTrack="true"/>
+
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/drawer">
-
-
 
         <com.google.android.material.navigation.NavigationView
             app:headerLayout="@layout/header"
@@ -29,10 +27,6 @@
             app:itemIconTint="@color/colorPrimary"
             app:menu="@menu/drawermenu"
             android:layout_gravity="start">
-
-
-
-
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 

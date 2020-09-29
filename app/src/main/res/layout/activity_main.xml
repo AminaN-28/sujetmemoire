@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Onboarding.MainActivity"
     android:backgroundTint="@color/white">
 
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="288dp"
-        android:layout_height="327dp"
+        android:layout_width="424dp"
+        android:layout_height="341dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <ImageView
+    <!--ImageView
         android:id="@+id/ind1"
         android:layout_width="15dp"
         android:layout_height="15dp"
@@ -65,7 +65,8 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/desc"
-        app:srcCompat="@drawable/selected" />
+        app:srcCompat="@drawable/selected"
+        android:layout_marginLeft="12dp" />
 
     <ImageView
         android:id="@+id/ind2"
@@ -151,7 +152,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_next"
         android:layout_marginRight="24dp"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat" /-->
 
 
     <Button
@@ -174,6 +175,27 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="656dp" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="77dp"
+        android:layout_height="24dp"
+        android:layout_above="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="688dp"
+        android:background="@drawable/button_background"
+        android:text="Skip!"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

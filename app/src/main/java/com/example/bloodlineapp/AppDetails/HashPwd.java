@@ -1,4 +1,4 @@
-package com.example.bloodlineapp;
+package com.example.bloodlineapp.AppDetails;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

@@ -1,14 +1,16 @@
-package com.example.bloodlineapp;
+package com.example.bloodlineapp.AppDetails;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Event extends AppCompatActivity {
+import com.example.bloodlineapp.R;
+
+public class Dashboared extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
+        setContentView(R.layout.activity_dashboared);
     }
 }

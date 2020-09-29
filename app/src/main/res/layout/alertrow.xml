@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="144dp">
+
+        <TextView
+            android:id="@+id/userN"
+            android:layout_width="243dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="User's Name"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/userT"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_below="@+id/userN"
+            android:text="User's Alert"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/userD"
+            android:layout_width="185dp"
+            android:layout_height="34dp"
+            android:layout_alignRight="@+id/userT"
+            android:gravity="center"
+            android:text="User's Date Alert"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/userBlood"
+            android:layout_width="185dp"
+            android:layout_height="34dp"
+            android:layout_below="@+id/userT"
+            android:layout_alignEnd="@+id/userB"
+            android:layout_alignRight="@+id/userB"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="-219dp"
+            android:layout_marginRight="-219dp"
+            android:gravity="center"
+            android:text=" Blood Group"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/userB"
+            android:layout_width="185dp"
+            android:layout_height="34dp"
+            android:layout_below="@+id/userT"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:text="Blood Group Needed:"
+            android:textSize="15dp" />
+
+
+        <!--Button
+            android:layout_width="234dp"
+            android:layout_height="59dp"
+            android:layout_below="@+id/userT"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/button_background"
+            android:text="Answer"
+            android:textColor="@color/white" /-->
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.bloodlineapp;
+package com.example.bloodlineapp.Onboarding;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+
+import com.example.bloodlineapp.R;
 
 public class SlideViewpager extends PagerAdapter {
     Context ctx;

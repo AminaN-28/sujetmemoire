@@ -4,14 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OTPVerify">
+    tools:context=".Login.OTPVerify">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background"
-         />
+
 
     <TextView
         android:id="@+id/topText"
@@ -20,7 +15,7 @@
         android:fontFamily="casual"
         android:gravity="center"
         android:text="I still don't trust you. Tell me something that Only two of us know."
-        android:textColor="@android:color/white"
+
         android:textSize="30dp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="0dp"
@@ -43,7 +38,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/pinView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991" />
+        app:layout_constraintVertical_bias="0.991"
+        android:gravity="center_horizontal" />
 
     <com.chaos.view.PinView
         android:id="@+id/pinView"

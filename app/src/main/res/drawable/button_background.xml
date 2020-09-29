@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="20dp"/>
-    <gradient android:startColor="#ff1500"
-        android:endColor="#e60000"/>
 
-</shape>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+android:color="#0dafdc">
+
+<item>
+    <shape android:shape="rectangle"
+        >
+
+
+        <corners
+            android:radius="100dp"/>
+
+
+        <gradient android:angle="0"
+            android:startColor="#e60000"
+            android:endColor="#ff1500"/>
+
+    </shape>
+</item>
+</ripple>

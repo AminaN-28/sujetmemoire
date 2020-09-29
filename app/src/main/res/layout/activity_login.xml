@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".Login.Login">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/background"
-         />
+        android:background="@color/white"
+        />
 
-
-    <TextView
+    <!--TextView
         android:id="@+id/topText"
         android:layout_width="match_parent"
         android:layout_height="154dp"
@@ -25,13 +23,14 @@
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints" /-->
 
 
     <!--This is the first Step-->
+
     <RelativeLayout
-        android:layout_width="365dp"
-        android:layout_height="434dp"
+        android:layout_width="374dp"
+        android:layout_height="530dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginStart="20dp"
@@ -39,108 +38,133 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="95dp"
+        android:layout_marginBottom="93dp"
         android:padding="10dp">
-
-        <TextView
-            android:id="@+id/fullname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:padding="4dp"
-            android:text="Full Name" />
 
         <EditText
             android:id="@+id/username"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_below="@id/fullname"
-            android:layout_marginTop="10dp"
+
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
             android:hint="Enter Your name"
             android:inputType="text" />
-
-
-        <TextView
-            android:id="@+id/usernumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/username"
-            android:layout_marginTop="2dp"
-            android:padding="4dp"
-            android:text="Phone Number" />
-
 
         <EditText
             android:id="@+id/userPhone"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_below="@+id/usernumber"
-            android:layout_marginTop="5dp"
+
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
             android:hint="Enter Your Phone Number "
-            android:inputType="number"/>
+            android:inputType="number" />
 
-        <TextView
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/userPhone"
-            android:layout_marginTop="10dp"
-            android:padding="4dp"
-            android:text="Password" />
 
         <EditText
             android:id="@+id/userpassword"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_below="@id/password"
-            android:layout_marginTop="10dp"
+
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
             android:hint="Define Your Password"
             android:inputType="text" />
 
-        <TextView
-            android:id="@+id/city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/userpassword"
-            android:layout_marginTop="10dp"
-            android:padding="4dp"
-            android:text="City" />
 
         <EditText
             android:id="@+id/usercity"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_below="@+id/city"
-            android:layout_marginTop="5dp"
+
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
             android:hint="Enter Your City " />
-
-        <TextView
-            android:id="@+id/grpeS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/usercity"
-            android:layout_marginTop="10dp"
-            android:padding="4dp"
-            android:text="Blood Group" />
 
         <EditText
             android:id="@+id/bloodgroup"
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_below="@+id/grpeS"
-            android:layout_marginTop="5dp"
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
             android:hint="Enter Your Blood Group " />
 
+        <EditText android:layout_height="40dp"
+            android:layout_width="350dp"
+            android:layout_below="@+id/weight"
+
+            android:background="@drawable/edittext_backgroung"
+            android:hint="Enter Your Weight"
+            android:gravity="center"
+            android:id="@+id/userweight"/>
+
+        <EditText android:layout_height="40dp"
+            android:layout_width="350dp"
+            android:layout_below="@+id/age"
+            android:id="@+id/userage"
+            android:background="@drawable/edittext_backgroung"
+            android:hint="Enter Your Age"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Full Name" />
+
+        <TextView
+            android:id="@+id/usernumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:padding="4dp"
+            android:text="Phone Number" />
+
+        <TextView
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userPhone"
+            android:padding="4dp"
+            android:text="Password" />
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userpassword"
+            android:padding="4dp"
+            android:text="City" />
+
+        <TextView
+            android:id="@+id/grpeS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usercity"
+            android:padding="4dp"
+            android:text="Blood Group" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bloodgroup"
+            android:padding="4dp"
+            android:text="Weight"
+            android:id="@+id/weight"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/userweight"
+            android:padding="4dp"
+            android:text="Age"
+            android:id="@+id/age"/>
     </RelativeLayout>
 
     <TextView
