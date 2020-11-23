@@ -4,224 +4,226 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bloodlineapp.Models.Alert;
-import com.example.bloodlineapp.Models.AlertClass;
+import com.example.bloodlineapp.Models.AlertAdapter;
 import com.example.bloodlineapp.Onboarding.MainActivity;
 import com.example.bloodlineapp.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.luseen.spacenavigation.SpaceItem;
-import com.luseen.spacenavigation.SpaceNavigationView;
-import com.luseen.spacenavigation.SpaceOnClickListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
 
 public class Home<mDatabase> extends AppCompatActivity {
 
     private DrawerLayout mdrawer;
+
     private  ActionBarDrawerToggle mToggle;
-    SpaceNavigationView navigationView;
+
     private NavigationView navDrawer;
 
+    private ChipNavigationBar chipNavigationBar;
+
+    private ScrollView scrollView;
+
+    String token;
+
+    FirebaseAuth mAuth;
+
+
+    //commentez la liste view apres.
     ListView listViews;
     ArrayList<Alert> arrayList = new ArrayList<>();
-    AlertClass alertAdapter = null;
+
+    private RecyclerView recyclerView;
+    private AlertAdapter adapter;
 
     DatabaseReference mGetReference;
     FirebaseDatabase mDatabase ;
 
-    String username;
+    String username, url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        username = getIntent().getStringExtra("nom");
+        url = getIntent().getStringExtra("profile");
+
+
         mdrawer = findViewById(R.id.drawer);
+
         navDrawer = findViewById(R.id.drawernav);
+        recyclerView = findViewById(R.id.recyclerView);
+
+        chipNavigationBar = findViewById(R.id.bottom_nav);
+
         mToggle = new ActionBarDrawerToggle(this,mdrawer,R.string.open ,R.string.close);
         mdrawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        mDatabase=  FirebaseDatabase.getInstance ();
+        mDatabase=  FirebaseDatabase.getInstance();
+        mGetReference = mDatabase.getReference();
 
-        listViews = findViewById(R.id.listView);
-        alertAdapter = new AlertClass(Home.this, R.layout.alertrow,arrayList);
-        listViews.setAdapter(alertAdapter);
-        username = getIntent().getStringExtra("nom");
 
-        // final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Home.this, R.layout.alertrow);
-        mGetReference = mDatabase.getInstance().getReference().child("alerts");
+        FirebaseRecyclerOptions<Alert> options =
+                new FirebaseRecyclerOptions.Builder<Alert>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("alerts"), Alert.class)
+                        .build();
 
-        Log.d("testeur",mGetReference.toString());
+        adapter = new AlertAdapter(options);
+        recyclerView.setAdapter(adapter);
 
-        mGetReference.addChildEventListener(new ChildEventListener() {
+        // FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+       // token();
+
+
+        //DrawerLayout item clickable
+         navDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                   case R.id.db:
+                       Toast.makeText(Home.this,"Dashboared",Toast.LENGTH_LONG).show();
+                       Intent firstintent = new Intent(Home.this, Dashboared.class);
+                       startActivity(firstintent);
+                       return true;
 
-              //  Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
-                Log.d("testeur",snapshot.getValue().toString());
-                arrayList.add(snapshot.getValue(Alert.class));
-                Log.d("alerts",String.valueOf(arrayList.size()));
-                alertAdapter.notifyDataSetChanged();
+                   case R.id.profil:
+                        Toast.makeText(Home.this,"Profil",Toast.LENGTH_LONG).show();
+                        Intent secondintent = new Intent(Home.this,Profil.class);
+                        startActivity(secondintent);
+                        return true;
 
+
+                   case R.id.event :
+                       Toast.makeText(Home.this,"Event",Toast.LENGTH_LONG).show();
+                       Intent thirdintent = new Intent(Home.this,Event.class);
+                       startActivity(thirdintent);
+                       return true;
+
+
+
+                   case   R.id.carte:
+                       Intent fiveintent = new Intent(Home.this,MapsActivity.class);
+                       startActivity(fiveintent);
+                       return true;
+
+                  case  R.id.parametres:
+                      Toast.makeText(Home.this,"Parametres et Confidentialites",Toast.LENGTH_LONG).show();
+//                      Intent sixintent = new Intent(Home.this, Parameters.class);
+                      //startActivity(sixintent);
+                      return true;
+
+                  case R.id.deconnexion:
+                      Toast.makeText(Home.this,"LogOut",Toast.LENGTH_LONG).show();
+                      Intent sevenintent = new Intent(Home.this, MainActivity.class);
+                      startActivity(sevenintent);
+                      finish();
+                      return true;
+                }
+                return true;
             }
+         });
+
+
+
+
+
+
+        //Make chipNavigation clickable
+
+        chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onItemSelected(int id)
+            {
+                switch (id)
+                {
 
-            }
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-              //  arrayList.remove(snapshot.getValue(String.class));
-                Log.d("testeur","remove is ok");
-                alertAdapter.notifyDataSetChanged();
-                listViews.setAdapter(alertAdapter);
-            }
+                     case R.id.request:
+                         Toast.makeText(Home.this, "Make Request", Toast.LENGTH_LONG).show();
+                         Intent chipRequest = new Intent(Home.this, WriteAlert.class);
+                         chipRequest.putExtra("nom", username);
+                         chipRequest.putExtra("profile", url);
+                         startActivity(chipRequest);
+                         break;
+                     case R.id.notif:
+                         Toast.makeText(Home.this, "See Notifications", Toast.LENGTH_LONG).show();
+                         Intent chipNotif = new Intent(Home.this, NotificatonAct.class);
+                         startActivity(chipNotif);
+                         break;
+                }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+                    }
         });
 
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            //FloatingActionButon
-                    final FloatingActionButton fab = findViewById(R.id.fab);
-                    fab.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                            Intent fab_int =new Intent(Home.this,WriteAlert.class);
-                            fab_int.putExtra("nom", username);
-                            startActivity(fab_int);
-                        }
-                    });
-
-                    //DrawerLayout item clickable
-                    navDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                        @Override
-                        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                            switch (menuItem.getItemId()){
-                                case R.id.db:
-                                    Toast.makeText(Home.this,"Dashboared",Toast.LENGTH_LONG).show();
-                                    Intent firstintent = new Intent(Home.this, Dashboared.class);
-                                    startActivity(firstintent);
-                                    return true;
-
-
-
-                                case R.id.profil:
-                                    Toast.makeText(Home.this,"Profil",Toast.LENGTH_LONG).show();
-                                    Intent secondintent = new Intent(Home.this,Profil.class);
-                                    startActivity(secondintent);
-                                    return true;
-
-
-                                case R.id.event :
-                                    Toast.makeText(Home.this,"Event",Toast.LENGTH_LONG).show();
-                                    Intent thirdintent = new Intent(Home.this,Event.class);
-                                    startActivity(thirdintent);
-                                    return true;
-
-
-                                case  R.id.signet :
-                                    Toast.makeText(Home.this,"Signet",Toast.LENGTH_LONG).show();
-                                    Intent fourintent = new Intent(Home.this,Signet.class);
-                                    startActivity(fourintent);
-                                    return true;
-
-
-                                case   R.id.carte:
-                                    Intent fiveintent = new Intent(Home.this,MapsActivity.class);
-                                    startActivity(fiveintent);
-                                    return true;
-
-                                case  R.id.parametres:
-                                    Toast.makeText(Home.this,"Parametres et Confidentialites",Toast.LENGTH_LONG).show();
-                                    Intent sixintent = new Intent(Home.this, Parameter.class);
-                                    startActivity(sixintent);
-                                    return true;
-
-
-                                case R.id.deconnexion:
-                                    Toast.makeText(Home.this,"Deconnexion",Toast.LENGTH_LONG).show();
-                                    Intent sevenintent = new Intent(Home.this, MainActivity.class);
-                                    startActivity(sevenintent);
-                                    return true;
-                            }
-                            return true;
-                        }
-                    });
-
-
-                    navigationView = findViewById(R.id.space);
-
-                    navigationView.initWithSaveInstanceState(savedInstanceState);
-                    navigationView.initWithSaveInstanceState(savedInstanceState);
-                    navigationView.addSpaceItem(new SpaceItem("SEARCH", R.drawable.ic_search_black_24dp));
-                    navigationView.addSpaceItem(new SpaceItem("NOTIFICATION", R.drawable.ic_notifications_black_24dp));
-
-                    navigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
-                        @Override
-                        public void onCentreButtonClick() {
-                            Toast.makeText(Home.this,"HOME", Toast.LENGTH_SHORT).show();
-                            navigationView.setCentreButtonSelectable(true);
-                        }
-                        @Override
-                        public void onItemClick(int itemIndex, String itemName) {
-                            Toast.makeText(Home.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
-                            Intent int_search= new Intent(Home.this,SearchAct.class);
-                            startActivity(int_search);
-                        }
-                        @Override
-                        public void onItemReselected(int itemIndex, String itemName) {
-                            Toast.makeText(Home.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
-                            Intent int_notif= new Intent(Home.this,NotificatonAct.class);
-                            startActivity(int_notif);
-
-                        }
-                    });
-
-
-
-                    //RECUPERER LE TEXTE PUBLIE ,LA DATE DE PUBLICATION ET LE NUMERO DU USER
-
-                }
-
+    public void token(){
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
-                    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-                        if (mToggle.onOptionsItemSelected(item)){
-                            return true;
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG1", "Fetching FCM registration token failed", task.getException());
+                            return;
                         }
-                        return super.onOptionsItemSelected(item);
+
+                        // Get new FCM registration token
+                        token = task.getResult();
+//                        FirebaseUser user = mAuth.getCurrentUser();
+                        //insertTokenTofirebase(user);
+                            // Log and toast
+                        //  String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("TAG2", "token");
+                        Toast.makeText( Home.this, "Home", Toast.LENGTH_SHORT).show();
                     }
+                });
 
+    }
+   /* public void insertTokenTofirebase(FirebaseUser user){
+        String key = mGetReference.push().getKey();
+       String auth = getIntent().getStringExtra("currentuser");
+        mGetReference.child("users").child(auth).child("token").setValue(token);
+        mGetReference.child(key).setValue(user); //adding token info to user tabl
 
-                }
+    }*/
+   @Override
+   protected void onStart() {
+       super.onStart();
+       adapter.startListening();
+   }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+}
 

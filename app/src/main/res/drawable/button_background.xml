@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-android:color="#0dafdc">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="#fdafdc"
+    tools:targetApi="lollipop">
 
 <item>
     <shape android:shape="rectangle"
@@ -9,12 +11,13 @@ android:color="#0dafdc">
 
 
         <corners
-            android:radius="100dp"/>
+            android:radius="110dp"/>
 
 
         <gradient android:angle="0"
-            android:startColor="#e60000"
-            android:endColor="#ff1500"/>
+            android:startColor="#ED1313"
+            android:endColor="#ED1313"
+            />
 
     </shape>
 </item>

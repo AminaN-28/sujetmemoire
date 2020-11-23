@@ -17,6 +17,8 @@ public class User  {
 
     private String weight;
 
+    private  String url;
+
 
     public User(){}
 
@@ -26,7 +28,7 @@ public class User  {
         this.phone = phone;
     }
 
-    public User(String fullName, String address, String phone,String password, String blood, String weight, String age) {
+    public User(String fullName, String address, String phone,String password, String blood, String weight, String age, String url ) {
 
         this.age = age ;
 
@@ -41,6 +43,16 @@ public class User  {
         this.password = password;
 
         this.blood = blood;
+        this.url = url;
+    }
+
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setFullName(String fullName) {

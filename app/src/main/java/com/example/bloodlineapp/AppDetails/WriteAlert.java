@@ -31,22 +31,19 @@ public class WriteAlert extends AppCompatActivity {
     EditText text_alert;
     Button publish;
     CardView cardView;
-     String username;
+     String username,url;
 
    // private Button Bmoins, Bplus, Amoins, Aplus, Oplus, Omoins, ABplus, ABmoins;
 
     private static final String ALERTS = "alerts";
 
-    private String alert , date, blood;
+     String alert , date, blood;
 
     private FirebaseAuth mAuth; //Create an instance of FirebaseAuth
 
     //our database reference object
-    DatabaseReference databaseAlerts;
-
+    DatabaseReference database;
     Spinner bloodg;
-
-
 
 
     @Override
@@ -55,8 +52,12 @@ public class WriteAlert extends AppCompatActivity {
         setContentView(R.layout.activity_write_alert);
 
         username = getIntent().getStringExtra("nom");
+        url = getIntent().getStringExtra("profile");
+
         text_alert = findViewById(R.id.makerequest);
         publish=findViewById(R.id.publishbtn);
+
+
 
 
         //Spinner blood group
@@ -78,7 +79,7 @@ public class WriteAlert extends AppCompatActivity {
 
 
         //getting the reference of users node
-        databaseAlerts = FirebaseDatabase.getInstance().getReference("alerts");
+        database =FirebaseDatabase.getInstance().getReference(ALERTS);
 
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,16 +124,15 @@ public class WriteAlert extends AppCompatActivity {
 
             //getting a unique id using push().getKey() method
             //it will create a unique id and we will use it as the Primary Key for our Artist
-            String id = databaseAlerts.push().getKey();
+            String id = database.push().getKey();
 
             //creating an Alert Object
-            Alert alertClass = new Alert(username, alert, date,blood);
-
+            Alert alertposted = new Alert(alert,url,username,blood,date);
             //Saving the Alert
-            databaseAlerts.child(id).setValue(alertClass);
+            database.child(id).setValue(alertposted);
 
             //setting edittext to blank again
-          //  text_alert.setText("");
+            //  text_alert.setText("");
 
             //displaying a success toast
             Toast.makeText(this, "Alert added", Toast.LENGTH_LONG).show();

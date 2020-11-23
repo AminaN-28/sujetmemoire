@@ -6,5 +6,18 @@
 
     <string name="close">Close</string>
 
+    <string name="profil">Choose Your profile image</string>
+    <string name="date">Lundi 14 Juin</string>
+
+    <string name="welcome">Welcome to BloodlineAPP. Join Us Help To Save Lives.</string>
+
+    <string name="menu_home">Home</string>
+
+    <string name="menu_search">Search</string>
+
+    <string name="menu_notif">Notification</string>
+    <string name="title_activity_parameters">Parameters</string>
+
+
 </resources>
 

@@ -1,19 +1,21 @@
 package com.example.bloodlineapp.Login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chaos.view.PinView;
 import com.example.bloodlineapp.AppDetails.Home;
 import com.example.bloodlineapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
@@ -23,13 +25,15 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.concurrent.TimeUnit;
+
+import static com.example.bloodlineapp.Login.Login.ImageUri;
 
 public class OTPVerify extends AppCompatActivity {
 
@@ -49,8 +53,11 @@ public class OTPVerify extends AppCompatActivity {
     private FirebaseDatabase database, mDBase;
 
     private DatabaseReference mDatabase;
+    private StorageReference mRoot;
 
-      String username;
+    String url;
+
+    String username, userprofile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +66,15 @@ public class OTPVerify extends AppCompatActivity {
         Verifybtn = findViewById(R.id.buttonotp);
         pinView = findViewById(R.id.pinView);
 
-        mAuth= FirebaseAuth.getInstance();//initialisation of instance
+        //mAuth= FirebaseAuth.getInstance();//initialisation of instance
         database = FirebaseDatabase.getInstance();
+        mRoot = FirebaseStorage.getInstance().getReference();
 
         mDatabase = database.getReference(USERS);
 
-        mCurrentUser = mAuth.getCurrentUser();
+        mDBase = FirebaseDatabase.getInstance();
+
+      //  mCurrentUser = mAuth.getCurrentUser();
 
         final String pinViewRec = pinView.getText().toString();
 
@@ -76,8 +86,9 @@ public class OTPVerify extends AppCompatActivity {
                // signInWithPhoneAuthCredential(credential);
                 //mCallbacks;
                     Intent gohome = new Intent(OTPVerify.this, Home.class);
-                    getUser();
+//                    getUser();
                     gohome.putExtra("nom", username);
+                    gohome.putExtra("profile",url);
                     startActivity(gohome);
                 }
 
@@ -99,10 +110,10 @@ public class OTPVerify extends AppCompatActivity {
 
                 //  print(credential.getSmsCode());
                 Log.d("Pokemon2", "onVerificationCompleted:" + credential.getSmsCode());
-
                 signInWithPhoneAuthCredential(credential);
-            }
 
+
+            }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
@@ -118,7 +129,6 @@ public class OTPVerify extends AppCompatActivity {
                     // The SMS quota for the project has been exceeded
                     // ...
                 }
-
                 // Show a message and update the UI
                 // ...
             }
@@ -156,10 +166,13 @@ public class OTPVerify extends AppCompatActivity {
         final  String userBloodG = getIntent().getStringExtra("groupeS");
         final  String userweight = getIntent().getStringExtra("weight");
         final  String userage = getIntent().getStringExtra("age");
-
-        User user = new User(username, useraddress, userphone, userpassword, userBloodG, userweight, userage);
+        url = getIntent().getStringExtra("profile");
+       // uploadtofirebase();
         String id = mDatabase.push().getKey(); //donner une clé d'identification au user
-        mDatabase.child(mCurrentUser.getUid()).setValue(user); //
+       saveInFBStorage(id);
+        User user = new User( username, useraddress, userphone, userpassword, userBloodG, userweight, userage, url);
+        mDatabase.child(id).setValue(user);
+//      mDatabase.child(mCurrentUser.getUid()).setValue(user); //
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+221" +userphone,        // Phone number to verify
                 60,                 // Timeout duration
@@ -167,6 +180,31 @@ public class OTPVerify extends AppCompatActivity {
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
 
+    }
+
+   public void saveInFBStorage(final String id){
+
+        mRoot.child("userProfile").child(id).putFile(ImageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        mRoot.child("userProfile").child(id).getDownloadUrl()
+                                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                         url = task.getResult().toString();
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+
+                    }
+                });
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
@@ -182,7 +220,7 @@ public class OTPVerify extends AppCompatActivity {
                             //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             //startActivity(intent);
                             FirebaseUser user = mAuth.getCurrentUser();
-                            getUser();
+                           // getUser();
 
                             // updateUI(user);
 
@@ -207,11 +245,8 @@ public class OTPVerify extends AppCompatActivity {
     }
 
 
-    private void getUser(){
-        mAuth = FirebaseAuth.getInstance();//initialisation of instance
+   /*private void getUser(){
         mCurrentUser = mAuth.getCurrentUser();
-
-        mDBase = FirebaseDatabase.getInstance();
         DatabaseReference mGetReference = mDBase.getReference().child("users").child(mCurrentUser.getUid());
         Log.d("salut", mCurrentUser.getUid());
 
@@ -241,6 +276,7 @@ public class OTPVerify extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
+
 
 }

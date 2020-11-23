@@ -13,7 +13,7 @@ import com.example.bloodlineapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button Startbtn , Skipbtn;
+    private Button Startbtn , Skipbtn, testbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         Skipbtn = findViewById(R.id.button1);
 
+        testbtn= findViewById(R.id.buttontest);
+
         Startbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Skipbtn.setOnClickListener(new View.OnClickListener() {
+        testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent skip = new Intent(MainActivity.this, Home.class);

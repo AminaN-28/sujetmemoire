@@ -1,74 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AppDetails.SearchAct">
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".AppDetails.SearchAct"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.android.com/apk/res/android ">
 
 
+    <TextView android:id="@+id/topText" android:layout_width="391dp"
+        android:layout_height="wrap_content" android:layout_marginStart="25dp"
+        android:layout_marginLeft="15dp" android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp" android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp" android:fontFamily="casual" android:gravity="center"
+        android:padding="15dp" android:layout_alignParentTop="true"
+        android:layout_centerInParent="true" android:text="Are you looking for someone ?"
+        android:textColor="@color/white" android:textSize="30sp" android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/topText"
-        android:layout_width="391dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:fontFamily="casual"
-        android:gravity="center"
-        android:padding="15dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:text="Are you looking for someone ?"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+    <EditText android:layout_width="match_parent" android:id="@+id/makerequest"
+        android:layout_height="66dp" android:layout_centerInParent="true"
+        android:background="@drawable/edittext_backgroung" android:gravity="center"
+        android:hint="Make your search here" android:layout_below="@+id/topText" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:id="@+id/makerequest"
-        android:layout_height="66dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/edittext_backgroung"
-        android:gravity="center"
-        android:hint="Make your search here"
-        android:layout_below="@+id/topText"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="286dp"
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="286dp"
         android:layout_centerInParent="true">
 
-        <TextView
-            android:id="@+id/downtext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:text="Pas de nouvelles tendances pour vous"
+        <TextView android:id="@+id/downtext" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_alignParentTop="true"
+            android:gravity="center" android:text="Pas de nouvelles tendances pour vous"
             android:textSize="30dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="71dp"
-            android:layout_below="@+id/downtext"
-            android:gravity="center"
-            android:text="Pas grand-chose dans les tendances pour le moment...\n mais vous pouvez en afficher pour d'autres lieux"
-            />
+        <TextView android:layout_width="match_parent" android:layout_height="71dp"
+            android:layout_below="@+id/downtext" android:gravity="center"
+            android:text="Pas grand-chose dans les tendances pour le moment...\n mais vous pouvez en afficher pour d'autres lieux" />
 
-        <Button
-            android:layout_width="271dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:background="@drawable/button_background"
-            android:padding="5dp"
-            android:text="Modifier la localisation"
-            android:textColor="@color/white">
-        </Button>
+        <Button android:layout_width="271dp" android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" android:layout_centerInParent="true"
+            android:background="@drawable/button_background" android:padding="5dp"
+            android:text="Modifier la localisation" android:textColor="@color/white"></Button>
 
 
     </RelativeLayout>

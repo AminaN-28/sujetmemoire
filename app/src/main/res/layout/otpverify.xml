@@ -4,32 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login.OTPVerify">
-
+    tools:context=".Login.OTPVerify"
+    android:background="@color/white">
 
 
     <TextView
         android:id="@+id/topText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:gravity="center"
+        android:fontFamily="times"
+        android:layout_marginTop="65dp"
         android:text="I still don't trust you. Tell me something that Only two of us know."
-
+        android:textAllCaps="false"
+        android:textColor="@color/red"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="182dp"
-        tools:ignore="MissingConstraints" />
-
+        tools:layout_editor_absoluteY="102dp" />
 
     <TextView
         android:id="@+id/textView_noti"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
         android:text="Enter the 6 digit OTP"
+        android:textColor="@color/colorBlack"
         android:textAlignment="center"
         android:textSize="30dp"
         android:textStyle="bold"
@@ -38,8 +41,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/pinView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991"
-        android:gravity="center_horizontal" />
+        app:layout_constraintVertical_bias="0.878" />
 
     <com.chaos.view.PinView
         android:id="@+id/pinView"
@@ -55,28 +57,33 @@
         app:itemCount="6"
         app:itemHeight="48dp"
         app:itemRadius="10dp"
+        app:itemSpacing="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.813"
-        app:lineColor="@android:color/darker_gray"
+        app:layout_constraintVertical_bias="0.633"
+        app:lineColor="@android:color/background_dark"
         app:viewType="rectangle" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Didn't get the OTP? RESEND OTP."
+        android:text="Didn't get the OTP? RESEND OTP"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBlack"
+        android:textSize="17dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/pinView"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="@+id/pinView"
         app:layout_constraintTop_toBottomOf="@+id/pinView"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.238" />
 
     <Button
         android:id="@+id/buttonotp"
@@ -84,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="72dp"
         android:background="@drawable/button_background"
         android:foreground="?android:attr/selectableItemBackground"
         android:text="Verify Otp"
@@ -95,8 +102,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

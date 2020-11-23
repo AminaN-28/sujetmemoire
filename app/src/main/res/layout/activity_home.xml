@@ -4,65 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AppDetails.Home">
+    tools:context=".AppDetails.Home"
+    android:background="@color/white">
 
-    <ListView android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:id="@+id/listView"
-        android:scrollbarAlwaysDrawVerticalTrack="true"/>
-
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
+    <!--androidx.recyclerview.widget.RecyclerView
         android:layout_height="match_parent"
-        android:id="@+id/drawer">
-
-        <com.google.android.material.navigation.NavigationView
-            app:headerLayout="@layout/header"
-            android:layout_width="wrap_content"
-            android:id="@+id/drawernav"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            app:itemTextColor="@color/colorPrimaryDark"
-            app:itemIconTint="@color/colorPrimary"
-            app:menu="@menu/drawermenu"
-            android:layout_gravity="start">
-        </com.google.android.material.navigation.NavigationView>
-    </androidx.drawerlayout.widget.DrawerLayout>
-
-    <com.luseen.spacenavigation.SpaceNavigationView
-        android:id="@+id/space"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        app:active_centre_button_background_color="@color/colorPrimaryDark"
-        app:active_centre_button_icon_color="@color/white"
-        app:active_item_color="@color/colorAccent"
-        app:centre_button_color="@color/colorPrimaryDark"
-        app:centre_button_icon="@drawable/ic_home_black_24dp"
-        app:inactive_centre_button_icon_color="@color/white"
-        app:inactive_item_color="@color/colorPrimary"
-        app:space_background_color="@color/white"
-        app:space_item_icon_only_size="@dimen/space_item_icon_only_size"
-        app:space_item_icon_size="30sp"
-        app:space_item_text_size="@dimen/space_item_text_default_size" />
+        android:id="@+id/recyclerView"/-->
 
-    <RelativeLayout android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/lineimg"
         android:layout_width="wrap_content"
-        android:layout_above="@+id/space"
-        android:layout_alignParentRight="true">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="155dp"
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:backgroundTint="@color/colorPrimary"
-            android:src="@drawable/ic_create_black_24dp" />
+        >
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="107dp"
+            android:layout_height="101dp"
+            android:src="@drawable/images"
+            />
 
     </RelativeLayout>
 
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lineimg"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_marginLeft="90dp"
+        android:id="@+id/textAbove"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="times"
+            android:text="@string/app_name"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            />
+
+    </RelativeLayout>
+
+<RelativeLayout android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_below="@+id/textAbove"
+    >
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerView"
+        />
+</RelativeLayout>
+
+
+    <RelativeLayout android:layout_height="match_parent"
+        android:layout_width="match_parent">
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/drawernav"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            app:headerLayout="@layout/header"
+            app:itemIconTint="@color/red"
+            app:menu="@menu/drawermenu">
+
+            </com.google.android.material.navigation.NavigationView>
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+    </RelativeLayout>
+    <RelativeLayout android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:id="@+id/btmmm"
+        android:layout_alignParentBottom="true">
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded"
+        android:elevation="16dp"
+        android:padding="8dp"
+        app:cnb_unselectedColor="@color/white"
+        app:cnb_menuResource="@menu/menu"
+        />
+    </RelativeLayout>
 
 
 </RelativeLayout>

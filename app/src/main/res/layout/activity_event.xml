@@ -1,9 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".AppDetails.Event">
 
 
-</RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="396dp"
+        android:layout_height="223dp"
+        android:elevation="8dp"
+        android:padding="15dp"
+        app:cardCornerRadius="10dp"
+        tools:layout_editor_absoluteX="8dp"
+        android:layout_margin="10dp"
+        tools:ignore="MissingConstraints">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:src="@drawable/wbd"
+            android:layout_alignParentTop="true"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_below="@+id/img1"
+            android:id="@+id/textTop"
+            android:text="@string/date"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:fontFamily="casual"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_below="@+id/textTop"
+                android:text=""
+                />
+        </RelativeLayout>
+
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

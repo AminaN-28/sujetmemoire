@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cnb_unselectedColor="@color/white">
+
+    <item android:title="Home"
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_iconColor="@color/red"
+        app:cnb_textColor="@color/red"/>
+
+
+    <item android:title="Make Request"
+        android:id="@+id/request"
+        android:icon="@drawable/ic_create_black_24dp"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_iconColor="@color/red"
+        app:cnb_textColor="@color/red"/>
+
+    <item android:title="Notifications"
+        android:id="@+id/notif"
+        android:icon="@drawable/ic_notif"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_iconColor="@color/red"
+        app:cnb_textColor="@color/red"/>
+</menu>

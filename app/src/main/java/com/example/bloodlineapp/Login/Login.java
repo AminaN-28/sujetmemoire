@@ -1,12 +1,17 @@
 package com.example.bloodlineapp.Login;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bloodlineapp.R;
@@ -15,14 +20,18 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.InputStream;
+
 
 public class Login extends AppCompatActivity {
 
-    private Button next;
+    private Button next;//BOUTON POUR ENVOYER AUSSI
 
     private EditText userName, userPhone, city, bloodg, userpassword, userage, userweight;
 
-    private String fname, phone, address, password, bloodG, age, weight;
+    private ImageView profile;
+
+    private String fname, phone, address, password, bloodG, age, weight, userprofile;
 
     private TextView logindirect;
 
@@ -39,6 +48,12 @@ public class Login extends AppCompatActivity {
 
     private DatabaseReference mDatabase; //reference
 
+    private final int REQUEST_CODE = 100;
+
+    public static Uri ImageUri;
+
+    Bitmap bitmap;
+
 
 
     @Override
@@ -47,6 +62,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         next = findViewById(R.id.button);
+        profile =findViewById(R.id.imageView);
         userName = findViewById(R.id.username);
         userPhone = findViewById(R.id.userPhone);
         bloodg = findViewById(R.id.bloodgroup);
@@ -55,18 +71,18 @@ public class Login extends AppCompatActivity {
         logindirect = findViewById(R.id.logindirct);
         userage = findViewById(R.id.userage);
         userweight = findViewById(R.id.userweight);
-
         mydatabase = FirebaseDatabase.getInstance();
         mDatabase = mydatabase.getReference(USERS);
+        mAuth = FirebaseAuth.getInstance();
 
-
+        addProfilePic();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //insert data into firebase database
                 if (validateFullName() | validatePassword() | validateAddress() | validatePhone()
-                        | validateBlood() | validateAge() | validateWeight() ) {
+                        | validateBlood() | validateAge() | validateWeight() | ImageUri != null) {
                     fname = userName.getText().toString();
                     address = city.getText().toString();
                     password = userpassword.getText().toString();
@@ -74,8 +90,7 @@ public class Login extends AppCompatActivity {
                     age = userage.getText().toString();
                     weight = userweight.getText().toString();
                     phone = userPhone.getText().toString();//convertir le numero en string
-
-
+                    userprofile =profile.getResources().toString();
                    Intent logInt = new Intent(Login.this, OTPVerify.class);
                    logInt.putExtra("nom", userName.getText().toString());
                    logInt.putExtra("phonenumber", userPhone.getText().toString());
@@ -84,24 +99,20 @@ public class Login extends AppCompatActivity {
                    logInt.putExtra("groupeS", bloodg.getText().toString());
                    logInt.putExtra("age", userage.getText().toString());
                    logInt.putExtra("weight", userweight.getText().toString());
+                   logInt.putExtra("profile", userprofile);
+
                     //logInt.putExtra("string",verificationId);
                     //logInt.putExtra("forcing",token);
                    startActivity(logInt);
-
+                   finish();
 
                 }
             }
         });
-        logindirect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent logindirect = new Intent(Login.this, Connect.class);
-                logindirect.putExtra("nom", userName.getText().toString());
-                logindirect.putExtra("password", userpassword.getText().toString());
-                startActivity(logindirect);
-            }
-        });
+
     }
+
+
 
     //validate function
     // validation functions
@@ -200,5 +211,36 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    public void addProfilePic(){
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chooseimg = new Intent(  );
+                chooseimg.setType("image/*");
+                chooseimg.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(chooseimg , REQUEST_CODE);
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK  && data != null){
+            ImageUri = data.getData();
+            try
+            {
+                InputStream inputStream=getContentResolver().openInputStream(ImageUri);
+                bitmap= BitmapFactory.decodeStream(inputStream);
+                profile.setImageBitmap(bitmap);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+    }
 
 }
