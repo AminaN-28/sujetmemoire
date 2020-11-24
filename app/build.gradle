@@ -92,6 +92,5 @@ dependencies {
     //pour resoudre probleme Caused by: java.lang.ClassNotFoundException: Didn't find class "androidx.browser.customtabs.CustomTabsIntent$Builder" on path: DexPathList[[zip file "/data/app/com.example.bloodlineapp--sH42xxg1RjspZ-2wnwicw==/base.apk"],nativeLibraryDirectories=[/data/app/com.example.bloodlineapp--sH42xxg1RjspZ-2wnwicw==/lib/arm64, /sys etc....androidx.browser:browser:1.2.0
     implementation 'androidx.browser:browser:1.2.0'
 
-    implementation'com.github.therealshabi:AutoImageFlipper:v1.4.1'
 
 }

@@ -27,7 +27,6 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -55,6 +54,8 @@ public class OTPVerify extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private StorageReference mRoot;
 
+    String mverificationId;
+
     String url;
 
     String username, userprofile;
@@ -67,30 +68,23 @@ public class OTPVerify extends AppCompatActivity {
         pinView = findViewById(R.id.pinView);
 
         //mAuth= FirebaseAuth.getInstance();//initialisation of instance
-        database = FirebaseDatabase.getInstance();
-        mRoot = FirebaseStorage.getInstance().getReference();
-
-        mDatabase = database.getReference(USERS);
-
-        mDBase = FirebaseDatabase.getInstance();
+//        database = FirebaseDatabase.getInstance();
+//        mRoot = FirebaseStorage.getInstance().getReference();
+//
+//        mDatabase = database.getReference(USERS);
+//
+//        mDBase = FirebaseDatabase.getInstance();
 
       //  mCurrentUser = mAuth.getCurrentUser();
 
-        final String pinViewRec = pinView.getText().toString();
 
         Verifybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                if (pinViewRec!= null){
-               // signInWithPhoneAuthCredential(credential);
-                //mCallbacks;
-                    Intent gohome = new Intent(OTPVerify.this, Home.class);
-//                    getUser();
-                    gohome.putExtra("nom", username);
-                    gohome.putExtra("profile",url);
-                    startActivity(gohome);
-                }
+                final String pinViewRec = pinView.getText().toString();
+                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mverificationId,pinViewRec);
+
 
             }
         });
@@ -111,6 +105,11 @@ public class OTPVerify extends AppCompatActivity {
                 //  print(credential.getSmsCode());
                 Log.d("Pokemon2", "onVerificationCompleted:" + credential.getSmsCode());
                 signInWithPhoneAuthCredential(credential);
+                Intent gohome = new Intent(OTPVerify.this, Home.class);
+//                    getUser();
+                gohome.putExtra("nom", username);
+                gohome.putExtra("profile",url);
+                startActivity(gohome);
 
 
             }
@@ -144,18 +143,20 @@ public class OTPVerify extends AppCompatActivity {
                 //updateUI(user);
 
                 // Save verification ID and resending token so we can use them later
-                String mVerificationId = verificationId;
+                 mverificationId = verificationId;
                 PhoneAuthProvider.ForceResendingToken mResendToken = token;
 
                 // ...
             }
         };
+        Log.d("test","tester");
+       Verify();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Verify();
+       // Verify();
     }
 
     private void Verify(){
@@ -168,11 +169,14 @@ public class OTPVerify extends AppCompatActivity {
         final  String userage = getIntent().getStringExtra("age");
         url = getIntent().getStringExtra("profile");
        // uploadtofirebase();
-        String id = mDatabase.push().getKey(); //donner une clé d'identification au user
-       saveInFBStorage(id);
+
+        Log.d("pika",userphone);
+
+//        String id = mDatabase.push().getKey(); //donner une clé d'identification au user
+    /*   saveInFBStorage(id);
         User user = new User( username, useraddress, userphone, userpassword, userBloodG, userweight, userage, url);
-        mDatabase.child(id).setValue(user);
-//      mDatabase.child(mCurrentUser.getUid()).setValue(user); //
+        mDatabase.child(id).setValue(user);*/
+//    mDatabase.child(mCurrentUser.getUid()).setValue(user); //
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+221" +userphone,        // Phone number to verify
                 60,                 // Timeout duration

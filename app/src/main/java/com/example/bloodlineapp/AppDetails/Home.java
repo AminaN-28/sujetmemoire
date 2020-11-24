@@ -2,6 +2,7 @@ package com.example.bloodlineapp.AppDetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -67,7 +69,7 @@ public class Home<mDatabase> extends AppCompatActivity {
         username = getIntent().getStringExtra("nom");
         url = getIntent().getStringExtra("profile");
 
-
+        mAuth = FirebaseAuth.getInstance();
         mdrawer = findViewById(R.id.drawer);
 
         navDrawer = findViewById(R.id.drawernav);
@@ -92,7 +94,16 @@ public class Home<mDatabase> extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         // FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-       // token();
+        Handler handler =  new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+              token();
+
+            }
+        }, 2000);
+    
 
 
         //DrawerLayout item clickable
@@ -196,8 +207,8 @@ public class Home<mDatabase> extends AppCompatActivity {
 
                         // Get new FCM registration token
                         token = task.getResult();
-//                        FirebaseUser user = mAuth.getCurrentUser();
-                        //insertTokenTofirebase(user);
+                       FirebaseUser user = mAuth.getCurrentUser();
+                        insertTokenTofirebase(user);
                             // Log and toast
                         //  String msg = getString(R.string.msg_token_fmt, token);
                         Log.d("TAG2", "token");
@@ -206,13 +217,12 @@ public class Home<mDatabase> extends AppCompatActivity {
                 });
 
     }
-   /* public void insertTokenTofirebase(FirebaseUser user){
+   public void insertTokenTofirebase(FirebaseUser user){
         String key = mGetReference.push().getKey();
-       String auth = getIntent().getStringExtra("currentuser");
-        mGetReference.child("users").child(auth).child("token").setValue(token);
+        mGetReference.child("users").child(user.getUid()).child("token").setValue(token);
         mGetReference.child(key).setValue(user); //adding token info to user tabl
 
-    }*/
+    }
    @Override
    protected void onStart() {
        super.onStart();

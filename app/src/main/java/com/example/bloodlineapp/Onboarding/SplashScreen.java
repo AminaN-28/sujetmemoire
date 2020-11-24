@@ -70,7 +70,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
 
-                if(mCurrentuser != null)
+                if(mCurrentuser.getCurrentUser() != null)
                 {
                     Intent login = new Intent(SplashScreen.this, Home.class);
                     startActivity(login);

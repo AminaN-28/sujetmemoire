@@ -1,66 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
-    tools:context=".AppDetails.Event">
-
+    tools:context=".AppDetails.Event"
+    android:orientation="vertical"
+    >
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="396dp"
-        android:layout_height="223dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:elevation="8dp"
         android:padding="15dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="18dp"
         tools:layout_editor_absoluteX="8dp"
         android:layout_margin="10dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:id="@+id/cardview1">
+
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_width="402dp"
+            android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp">
-
-        <ImageView
-            android:id="@+id/img1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:src="@drawable/wbd"
-            android:layout_alignParentTop="true"
-            />
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_below="@+id/img1"
-            android:id="@+id/textTop"
-            android:text="@string/date"
-            android:textStyle="bold"
-            android:textColor="@color/colorBlack"
-            android:textSize="30dp"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:fontFamily="casual"/>
-
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:layout_below="@+id/textTop"
-                android:text=""
-                />
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:background="#FFF"
+                android:padding="15dp">
 
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/wbd" />
+
+
+                <TextView
+                    android:id="@+id/textTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_below="@+id/img1"
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:text="@string/date"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_below="@+id/textTop"
+                    android:id="@+id/scroll1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="89dp"
+                        android:layout_below="@+id/textTop"
+                        android:text="La Journée mondiale du donneur de sang est une journée internationale organisée chaque 14 juin par l'Organisation mondiale de la santé d'après l'anniversaire de Karl Landsteiner. Elle est consacrée à la promotion et la sensibilisation du don de sang et du produit sanguin labile pour la santé à tous."
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+                </ScrollView>
+
+
+
+
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="363dp"
+                    android:layout_height="323dp"
+                    android:layout_below="@+id/scroll1"
+                    android:layout_marginTop="21dp"
+                    android:src="@drawable/comatibilitebs" />
+
+
+                <TextView
+                    android:id="@+id/textTop2"
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_below="@+id/img2"
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:text="@string/tableau"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_below="@+id/textTop2"
+                    android:id="@+id/scroll2">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:text="Chez les êtres humains, le groupe sanguin est déterminé en fonction des substances présentes à la surface des globules rouges, appelées antigènes. Les groupes sanguins sont regroupés en systèmes. Dans le système ABO, il existe quatre groupes sanguins possibles : A, B, O et AB."
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                </ScrollView>
+
+
+
+
+                <ImageView
+                    android:id="@+id/img3"
+                    android:layout_width="363dp"
+                    android:layout_height="344dp"
+                    android:layout_below="@+id/scroll2"
+                    android:src="@drawable/allbg" />
+
+
+                <TextView
+                    android:id="@+id/textTop3"
+                    android:layout_width="match_parent"
+                    android:layout_height="89dp"
+                    android:layout_below="@+id/img3"
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:text="@string/allgp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_below="@+id/textTop3">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="89dp"
+                        android:text="Pour la transfusion de globules rouges, les individus de groupe O- peuvent donner à n'importe quel receveur : ils sont appelés « donneurs universels ». À l'inverse, les individus de groupe AB+ peuvent recevoir les globules rouges de tous les groupes sanguins.
+                     Ils sont dits « receveurs universels ».En début de grossesse, le groupe rhésus de la maman doit être connu. L'incompatibilité rhésus concerne des femmes dont le groupe sanguin est de rhésus négatif (A-, B-, O- ou AB-), mais dont le bébé est de rhésus positif (A+, B+, O+ ou AB+)."
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+                </ScrollView>
+
+
+            </RelativeLayout>
         </ScrollView>
+
     </androidx.cardview.widget.CardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
