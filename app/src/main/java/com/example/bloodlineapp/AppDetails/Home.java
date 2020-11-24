@@ -1,11 +1,11 @@
 package com.example.bloodlineapp.AppDetails;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -15,12 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bloodlineapp.Login.User;
 import com.example.bloodlineapp.Models.Alert;
 import com.example.bloodlineapp.Models.AlertAdapter;
 import com.example.bloodlineapp.Onboarding.MainActivity;
 import com.example.bloodlineapp.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,9 +31,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-import java.util.ArrayList;
+import static com.example.bloodlineapp.Login.Login.ImageUri;
 
 public class Home<mDatabase> extends AppCompatActivity {
 
@@ -48,28 +54,59 @@ public class Home<mDatabase> extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
-
+    StorageReference mRoot;
     //commentez la liste view apres.
-    ListView listViews;
-    ArrayList<Alert> arrayList = new ArrayList<>();
+   // ListView listViews;
+    //ArrayList<Alert> arrayList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private AlertAdapter adapter;
 
+    private FirebaseUser mCurrentUser;//for member variable
+
     DatabaseReference mGetReference;
     FirebaseDatabase mDatabase ;
 
-    String username, url;
+    String username, url,userBloodG,userage,userweight,userpassword,useraddress,userphone;
+    private static final String USERS = "users";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
+        mAuth= FirebaseAuth.getInstance();//initialisation of instance
+        mCurrentUser = mAuth.getCurrentUser();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mRoot = FirebaseStorage.getInstance().getReference();
+      //  mDatabase = database.getReference(USERS);
+        //mDBase = FirebaseDatabase.getInstance();
+      mDatabase=  FirebaseDatabase.getInstance();
+        mGetReference = mDatabase.getReference(USERS);
+
+
         username = getIntent().getStringExtra("nom");
+        userpassword = getIntent().getStringExtra("password");
+        useraddress = getIntent().getStringExtra("address");
+        userphone = getIntent().getStringExtra("phonenumber");
+        userBloodG = getIntent().getStringExtra("groupeS");
+        userweight = getIntent().getStringExtra("weight");
+        userage = getIntent().getStringExtra("age");
         url = getIntent().getStringExtra("profile");
 
-        mAuth = FirebaseAuth.getInstance();
+
+        //Add data to firebase database
+         String id = mGetReference.push().getKey(); //donner une clé d'identification au user
+
+        saveInFBStorage(id);
+        User user = new User( username, useraddress, userphone, userpassword, userBloodG, userweight, userage, url);
+        mGetReference.child(id).setValue(user);
+        mGetReference.child(mCurrentUser.getUid()).setValue(user);
+
         mdrawer = findViewById(R.id.drawer);
 
         navDrawer = findViewById(R.id.drawernav);
@@ -81,8 +118,7 @@ public class Home<mDatabase> extends AppCompatActivity {
         mdrawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        mDatabase=  FirebaseDatabase.getInstance();
-        mGetReference = mDatabase.getReference();
+
 
 
         FirebaseRecyclerOptions<Alert> options =
@@ -103,7 +139,7 @@ public class Home<mDatabase> extends AppCompatActivity {
 
             }
         }, 2000);
-    
+
 
 
         //DrawerLayout item clickable
@@ -223,7 +259,33 @@ public class Home<mDatabase> extends AppCompatActivity {
         mGetReference.child(key).setValue(user); //adding token info to user tabl
 
     }
-   @Override
+
+    public void saveInFBStorage(final String id){
+
+        mRoot.child("userProfile").child(id).putFile(ImageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        mRoot.child("userProfile").child(id).getDownloadUrl()
+                                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        url = task.getResult().toString();
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+
+                    }
+                });
+    }
+
+    @Override
    protected void onStart() {
        super.onStart();
        adapter.startListening();

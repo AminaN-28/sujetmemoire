@@ -109,7 +109,7 @@ public class WriteAlert extends AppCompatActivity {
 
             Calendar c = Calendar.getInstance();
           //  SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd' T'HH:mm:ss.SSS' Z'");
             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
             try {
                 long time = sdf.parse("2016-01-24T16:00:00.000Z").getTime();
@@ -123,7 +123,7 @@ public class WriteAlert extends AppCompatActivity {
             date = formattedDate.trim();
 
             //getting a unique id using push().getKey() method
-            //it will create a unique id and we will use it as the Primary Key for our Artist
+            //it will create a unique id and we will use it as the Primary Key for our Alert
             String id = database.push().getKey();
 
             //creating an Alert Object

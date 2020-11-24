@@ -21,10 +21,12 @@
 
     <EditText
         android:id="@+id/makerequest"
-        android:layout_width="328dp"
-        android:layout_height="131dp"
+        android:layout_width="match_parent"
+        android:layout_height="129dp"
         android:layout_below="@+id/topText"
-        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="46dp"
         android:background="@drawable/edittext_backgroung"
         android:gravity="center"
@@ -36,6 +38,9 @@
         android:layout_below="@+id/makerequest"
         android:text="CHOOSE THE BLOOD GROUP YOU NEED:"
         android:layout_centerInParent="true"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="times"
+        android:textAllCaps="true"
         android:gravity="center"
         android:textFontWeight="5"/>
 
@@ -50,6 +55,7 @@
             android:layout_height="50dp"
             android:id="@+id/spinner_blood"
             android:spinnerMode="dialog"
+            android:background="@drawable/background"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="56dp"
