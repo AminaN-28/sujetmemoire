@@ -59,17 +59,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
-
-
-
-
-    //Notifications
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:26.1.0')
-// Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-messaging'
-    implementation 'com.google.firebase:firebase-analytics'
+    
 
 
 // Getting a "Could not find" error? Make sure that you've added
@@ -92,5 +82,21 @@ dependencies {
     //pour resoudre probleme Caused by: java.lang.ClassNotFoundException: Didn't find class "androidx.browser.customtabs.CustomTabsIntent$Builder" on path: DexPathList[[zip file "/data/app/com.example.bloodlineapp--sH42xxg1RjspZ-2wnwicw==/base.apk"],nativeLibraryDirectories=[/data/app/com.example.bloodlineapp--sH42xxg1RjspZ-2wnwicw==/lib/arm64, /sys etc....androidx.browser:browser:1.2.0
     implementation 'androidx.browser:browser:1.2.0'
 
+
+
+        // ...
+
+        // Import the Firebase BoM
+        implementation platform('com.google.firebase:firebase-bom:26.1.0')
+
+        // When using the BoM, you don't specify versions in Firebase library dependencies
+
+        // Declare the dependency for the Firebase SDK for Google Analytics
+        implementation 'com.google.firebase:firebase-analytics'
+
+        // Declare the dependencies for any other desired Firebase products
+        // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
+        implementation 'com.google.firebase:firebase-auth'
+        implementation 'com.google.firebase:firebase-firestore'
 
 }

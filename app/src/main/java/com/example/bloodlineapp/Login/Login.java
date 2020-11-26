@@ -1,6 +1,10 @@
 package com.example.bloodlineapp.Login;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bloodlineapp.R;
@@ -21,11 +27,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.InputStream;
+import java.util.Locale;
 
 
 public class Login extends AppCompatActivity {
 
-    private Button next;//BOUTON POUR ENVOYER AUSSI
+    private Button next, changelang;//BOUTON POUR ENVOYER AUSSI
 
     private EditText userName, userPhone, city, bloodg, userpassword, userage, userweight;
 
@@ -60,6 +67,23 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        changelang = findViewById(R.id.button1);
+
+        changelang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Show AlertDialog to display list of languages , one only can be selected
+                showChangeLangageDialog();
+
+            }
+        });
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.app_name));
+
 
         next = findViewById(R.id.button);
         profile =findViewById(R.id.imageView);
@@ -241,6 +265,68 @@ public class Login extends AppCompatActivity {
 
             }
         }
+    }
+
+
+    private void showChangeLangageDialog() {
+        final String [] list = {"French", "Català", "جزائري", "موريتاني", "English Us"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(Login.this);
+        mBuilder.setTitle("Choose Language.....");
+        mBuilder.setSingleChoiceItems(list, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0){
+                    setLocale("fr");
+                    recreate();
+                }
+                else if (which == 1){
+                    setLocale("ca");
+                    recreate();
+                }
+                else if (which == 2){
+                    setLocale("ar");
+                    recreate();
+                }
+                else if (which == 3){
+                    setLocale("ar");
+                    recreate();
+                }
+                else
+                {
+                    setLocale("en");
+                    recreate();
+                }
+
+                //dismiss alertwhen item selected
+
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = mBuilder.create();
+
+        alertDialog.show();
+
+    }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale =locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+
+        //saved data to shared preferences
+        SharedPreferences.Editor editor =  getSharedPreferences("Settinngs", MODE_PRIVATE).edit();
+        editor.putString("My Language", language);
+        editor.apply();
+    }
+
+    public void loadLocale(){
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String lang = preferences.getString("My Language","");
+        setLocale(lang);
     }
 
 }

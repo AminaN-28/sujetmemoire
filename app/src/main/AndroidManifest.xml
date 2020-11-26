@@ -55,9 +55,6 @@
             android:name=".AppDetails.NotificatonAct"
             android:parentActivityName=".AppDetails.Home" />
         <activity
-            android:name=".AppDetails.SearchAct"
-            android:parentActivityName=".AppDetails.Home" />
-        <activity
             android:name=".AppDetails.Profil"
             android:parentActivityName=".AppDetails.Home" />
         <activity

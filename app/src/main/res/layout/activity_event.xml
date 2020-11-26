@@ -22,7 +22,7 @@
         android:id="@+id/cardview1">
 
         <ScrollView
-            android:layout_width="402dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RelativeLayout
@@ -53,21 +53,16 @@
                     android:textSize="30dp"
                     android:textStyle="bold" />
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="105dp"
-                    android:layout_below="@+id/textTop"
-                    android:id="@+id/scroll1">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="89dp"
-                        android:layout_below="@+id/textTop"
-                        android:text="La Journée mondiale du donneur de sang est une journée internationale organisée chaque 14 juin par l'Organisation mondiale de la santé d'après l'anniversaire de Karl Landsteiner. Elle est consacrée à la promotion et la sensibilisation du don de sang et du produit sanguin labile pour la santé à tous."
-                        android:textColor="@color/colorBlack"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
-                </ScrollView>
+                <TextView
+                    android:id="@id/text14"
+                    android:layout_width="match_parent"
+                    android:layout_height="162dp"
+                    android:layout_below="@+id/textTop"
+                    android:text="La Journée mondiale du donneur de sang est une journée internationale organisée chaque 14 juin par l'Organisation mondiale de la santé d'après l'anniversaire de Karl Landsteiner. Elle est consacrée à la promotion et la sensibilisation du don de sang et du produit sanguin labile pour la santé à tous."
+                    android:textColor="@color/colorBlack"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
 
 
 
@@ -75,9 +70,9 @@
 
                 <ImageView
                     android:id="@+id/img2"
-                    android:layout_width="363dp"
+                    android:layout_width="match_parent"
                     android:layout_height="323dp"
-                    android:layout_below="@+id/scroll1"
+                    android:layout_below="@+id/text14"
                     android:layout_marginTop="21dp"
                     android:src="@drawable/comatibilitebs" />
 
@@ -95,28 +90,21 @@
                     android:textSize="30dp"
                     android:textStyle="bold" />
 
-                <ScrollView
+
+                <TextView
+                    android:id="@+id/scroll2"
                     android:layout_width="match_parent"
-                    android:layout_height="105dp"
+                    android:layout_height="179dp"
                     android:layout_below="@+id/textTop2"
-                    android:id="@+id/scroll2">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:text="Chez les êtres humains, le groupe sanguin est déterminé en fonction des substances présentes à la surface des globules rouges, appelées antigènes. Les groupes sanguins sont regroupés en systèmes. Dans le système ABO, il existe quatre groupes sanguins possibles : A, B, O et AB."
-                        android:textColor="@color/colorBlack"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
-
-                </ScrollView>
-
-
+                    android:text="Chez les êtres humains, le groupe sanguin est déterminé en fonction des substances présentes à la surface des globules rouges, appelées antigènes. Les groupes sanguins sont regroupés en systèmes. Dans le système ABO, il existe quatre groupes sanguins possibles : A, B, O et AB."
+                    android:textColor="@color/colorBlack"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
 
 
                 <ImageView
                     android:id="@+id/img3"
-                    android:layout_width="363dp"
+                    android:layout_width="match_parent"
                     android:layout_height="344dp"
                     android:layout_below="@+id/scroll2"
                     android:src="@drawable/allbg" />
@@ -135,21 +123,17 @@
                     android:textSize="30dp"
                     android:textStyle="bold" />
 
-                <ScrollView
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="105dp"
-                    android:layout_below="@+id/textTop3">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="89dp"
-                        android:text="Pour la transfusion de globules rouges, les individus de groupe O- peuvent donner à n'importe quel receveur : ils sont appelés « donneurs universels ». À l'inverse, les individus de groupe AB+ peuvent recevoir les globules rouges de tous les groupes sanguins.
+                    android:layout_height="314dp"
+                    android:layout_below="@+id/textTop3"
+                    android:text="Pour la transfusion de globules rouges, les individus de groupe O- peuvent donner à n'importe quel receveur : ils sont appelés « donneurs universels ». À l'inverse, les individus de groupe AB+ peuvent recevoir les globules rouges de tous les groupes sanguins.
                      Ils sont dits « receveurs universels ».En début de grossesse, le groupe rhésus de la maman doit être connu. L'incompatibilité rhésus concerne des femmes dont le groupe sanguin est de rhésus négatif (A-, B-, O- ou AB-), mais dont le bébé est de rhésus positif (A+, B+, O+ ou AB+)."
-                        android:textColor="@color/colorBlack"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
 
-                </ScrollView>
 
 
             </RelativeLayout>

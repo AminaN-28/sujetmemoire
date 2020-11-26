@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="open">Open</string>
 
     <string name="close">Close</string>
@@ -40,9 +40,9 @@
 
     <!--PAGE DES EVENEMENTS-->
 
-    <string name="date">Monday June 14th</string>
-    <string name="tableau">Compatibility Table</string>
-    <string name="allgp">Blood Group</string>
+    <string name="date">Lundi 14 Juin</string>
+    <string name="tableau">Tableau de Compatiblité</string>
+    <string name="allgp">Les groupes Sanguins</string>
 
 
 
@@ -51,7 +51,4 @@
     <!--CHIP NAVIGATION-->
 
 
-
-
 </resources>
-

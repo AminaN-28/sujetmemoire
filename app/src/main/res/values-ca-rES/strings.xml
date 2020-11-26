@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="open">Obert</string>
+
+    <string name="close">Tanca</string>
+
+    <!--TO TRANSLATE ALL WE MUST HAVE ALL TEXTS IN STRING FILES-->
+    <string name="app_name">BLOODLINEAPP</string>
+
+    <!--PAGE D'INSCRIPTION-->
+    <string name="profil">Trieu la vostra imatge de perfil</string>
+    <string name="profiledit"> Introdueixi el seu nom</string>
+    <string name="phoneedit">Introduïu el vostre número de telèfon</string>
+    <string name="ageedit">Introduïu la vostra edat</string>
+    <string name="bloodedit">Introduïu el vostre grup sanguini </string>
+    <string name="weightedit">Introduïu el vostre pes </string>
+    <string name="addressedit">Entra a la teva ciutat</string>
+    <string name="passwordedit">Definiu la vostra contrasenya</string>
+
+    <string name="profiltext">Nom complet</string>
+    <string name="phonetext">Número de telèfon</string>
+    <string name="agetext">Edat</string>
+    <string name="weighttext">Pes</string>
+    <string name="bloodtext"></string>
+    <string name="passwordtext">Grup sanguini</string>
+    <string name="addresstext">Adreça / Ciutat</string>
+
+    <string name="bedonortext">Sigues donant!</string>
+
+    <!--PAGE MAIN APRES SPLASH-->
+
+    <string name="btngetstarted">Començar!</string>
+    <string name="btnchange">Canvieu l\'idioma abans de començar</string>
+
+    <string name="welcome">Benvingut a BloodlineAPP. Uniu-vos a nosaltres Ajuda per salvar vides.</string>
+
+
+
+
+
+    <!--PAGE DES EVENEMENTS-->
+
+    <string name="date">Dilluns 14 de juny</string>
+    <string name="tableau">Taula de compatibilitat</string>
+    <string name="allgp">Grups sanguinis</string>
+
+
+
+
+
+    <!--CHIP NAVIGATION-->
+
+
+</resources>

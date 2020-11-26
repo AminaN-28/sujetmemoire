@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="open">Ouvert</string>
+
+    <string name="close">Fermé</string>
+
+    <!--TO TRANSLATE ALL WE MUST HAVE ALL TEXTS IN STRING FILES-->
+    <string name="app_name">BLOODLINEAPP</string>
+
+    <!--PAGE D'INSCRIPTION-->
+    <string name="profil">Choisissez votre image de profil</string>
+    <string name="profiledit"> Entrez votre nom </string>
+    <string name="phoneedit">Entrez votre numéro de téléphone</string>
+    <string name="ageedit">Entrez votre âge</string>
+    <string name="bloodedit">Entrez votre groupe sanguin</string>
+    <string name="weightedit"> Entrez votre poids</string>
+    <string name="addressedit"> Entrez votre ville</string>
+    <string name="passwordedit">Definissez votre mot de passe</string>
+
+    <string name="profiltext">Nom complet </string>
+    <string name="phonetext">Numéro de téléphone</string>
+    <string name="agetext">Age</string>
+    <string name="weighttext">Poids</string>
+    <string name="bloodtext">Groupe Sanguin</string>
+    <string name="passwordtext">Mot de passe</string>
+    <string name="addresstext">Adresse/Ville</string>
+
+    <string name="bedonortext">Soyez donateur!</string>
+
+    <!--PAGE MAIN APRES SPLASH-->
+
+    <string name="btngetstarted">Commencer!</string>
+    <string name="btnchange">Changer de langue avant de commencer</string>
+
+    <string name="welcome">Bienvenue sur BloodlineAPP. Rejoignez-nous et Aider à sauver des vies.</string>
+
+
+
+
+
+    <!--PAGE DES EVENEMENTS-->
+
+    <string name="date">Lundi 14 Juin</string>
+    <string name="tableau">Tableau de Compatiblité</string>
+    <string name="allgp">Les groupes Sanguins</string>
+
+
+
+
+
+    <!--CHIP NAVIGATION-->
+
+
+</resources>

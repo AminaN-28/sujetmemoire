@@ -46,7 +46,6 @@
             android:layout_below="@+id/imageView"
             android:text="@string/profil"
             android:fontFamily="times"
-
             android:textSize="17dp"
             android:textColor="@color/colorBlack"
             android:gravity="center"
@@ -58,10 +57,10 @@
             android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_below="@id/fullname"
-android:textColorHint="@color/colorBlack"
+            android:textColorHint="@color/colorBlack"
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
-            android:hint="Enter Your name"
+            android:hint="@string/profiledit"
             android:inputType="text"
             />
 
@@ -73,7 +72,7 @@ android:textColorHint="@color/colorBlack"
             android:textColorHint="@color/colorBlack"
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
-            android:hint="Enter Your Phone Number "
+            android:hint="@string/phoneedit"
             android:inputType="number" />
 
 
@@ -85,7 +84,7 @@ android:textColorHint="@color/colorBlack"
             android:textColorHint="@color/colorBlack"
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
-            android:hint="Define Your Password"
+            android:hint="@string/passwordedit"
             android:inputType="text" />
 
 
@@ -97,7 +96,7 @@ android:textColorHint="@color/colorBlack"
             android:textColorHint="@color/colorBlack"
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
-            android:hint="Enter Your City " />
+            android:hint="@string/addressedit" />
 
         <EditText
             android:id="@+id/bloodgroup"
@@ -107,14 +106,14 @@ android:textColorHint="@color/colorBlack"
             android:textColorHint="@color/colorBlack"
             android:background="@drawable/edittext_backgroung"
             android:gravity="center"
-            android:hint="Enter Your Blood Group " />
+            android:hint="@string/bloodedit" />
 
         <EditText android:layout_height="40dp"
             android:layout_width="350dp"
             android:layout_below="@+id/weight"
             android:textColorHint="@color/colorBlack"
             android:background="@drawable/edittext_backgroung"
-            android:hint="Enter Your Weight"
+            android:hint="@string/weightedit"
             android:gravity="center"
             android:id="@+id/userweight"/>
 
@@ -124,7 +123,7 @@ android:textColorHint="@color/colorBlack"
             android:id="@+id/userage"
             android:textColorHint="@color/colorBlack"
             android:background="@drawable/edittext_backgroung"
-            android:hint="Enter Your Age"
+            android:hint="@string/ageedit"
             android:gravity="center"/>
 
         <TextView
@@ -136,7 +135,7 @@ android:textColorHint="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="4dp"
-            android:text="Full Name"
+            android:text="@string/profiltext"
             android:layout_below="@id/textprofil"/>
 
         <TextView
@@ -149,7 +148,7 @@ android:textColorHint="@color/colorBlack"
             android:textSize="17dp"
             android:textColor="@color/colorBlack"
             android:padding="4dp"
-            android:text="Phone Number" />
+            android:text="@string/phonetext" />
 
         <TextView
             android:id="@+id/password"
@@ -161,7 +160,7 @@ android:textColorHint="@color/colorBlack"
             android:textColor="@color/colorBlack"
             android:layout_below="@+id/userPhone"
             android:padding="4dp"
-            android:text="Password" />
+            android:text="@string/passwordtext" />
 
         <TextView
             android:id="@+id/city"
@@ -173,7 +172,7 @@ android:textColorHint="@color/colorBlack"
             android:textColor="@color/colorBlack"
             android:layout_below="@id/userpassword"
             android:padding="4dp"
-            android:text="City" />
+            android:text="@string/addresstext" />
 
         <TextView
             android:id="@+id/grpeS"
@@ -184,7 +183,7 @@ android:textColorHint="@color/colorBlack"
             android:textSize="17dp"
             android:textColor="@color/colorBlack"
             android:padding="4dp"
-            android:text="Blood Group" />
+            android:text="@string/bloodtext" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -196,43 +195,50 @@ android:textColorHint="@color/colorBlack"
             android:textColor="@color/colorBlack"
 
             android:padding="4dp"
-            android:text="Weight"
+            android:text="@string/weighttext"
             android:id="@+id/weight"/>
 
         <TextView android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_below="@+id/userweight"
             android:padding="4dp"
-            android:text="Age"
+            android:text="@string/agetext"
             android:fontFamily="times"
 
             android:textSize="17dp"
             android:textColor="@color/colorBlack"
             android:id="@+id/age"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="59dp"
-            android:text="Already registered? Login now"
-            android:textColor="@color/colorBlack"
-            android:textSize="17sp"
-            android:id="@+id/logindirct"
-            android:layout_below="@id/userage"/>
+
+
+
+
         <Button
             android:id="@+id/button"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="90dp"
             android:background="@drawable/button_background"
-            android:text="Be a donor!"
+            android:text="@string/bedonortext"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:layout_below="@id/logindirct"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/userage"
             android:layout_centerHorizontal="true"
             android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="450dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button"
+            android:layout_marginTop="-108dp"
+            android:background="@drawable/btn_change"
+            android:text="@string/btnchange"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            tools:ignore="MissingConstraints" />
 
     </RelativeLayout>
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="open">افتح</string>
+
+    <string name="close">أغلق</string>
+
+    <!--TO TRANSLATE ALL WE MUST HAVE ALL TEXTS IN STRING FILES-->
+    <string name="app_name">BLOODLINEAPP</string>
+
+    <!--PAGE D'INSCRIPTION-->
+    <string name="profil">اختر صورة ملفك الشخصي</string>
+    <string name="profiledit"> أدخل أسمك</string>
+    <string name="phoneedit">أدخل رقم هاتفك</string>
+    <string name="ageedit">أدخل عمرك</string>
+    <string name="bloodedit">أدخل فصيلة الدم الخاصة بك</string>
+    <string name="weightedit">أدخل وزنك </string>
+    <string name="addressedit">أدخل مدينتك </string>
+    <string name="passwordedit">حدد كلمة المرور الخاصة بك</string>
+
+    <string name="profiltext"> الاسم الكامل</string>
+    <string name="phonetext">رقم الهاتف</string>
+    <string name="agetext">عمر</string>
+    <string name="weighttext">وزن</string>
+    <string name="bloodtext">فصيلة الدم</string>
+    <string name="passwordtext">كلمه السر</string>
+    <string name="addresstext">العنوان أو المدينة</string>
+
+    <string name="bedonortext">كن متبرعا!</string>
+
+    <!--PAGE MAIN APRES SPLASH-->
+
+    <string name="btngetstarted">البدء!</string>
+    <string name="btnchange">تغيير اللغة قبل أن تبدأ</string>
+
+    <string name="welcome">مرحبا بكم في BloodlineAPP. انضم إلينا ساعد في إنقاذ الأرواح.</string>
+
+
+
+
+
+    <!--PAGE DES EVENEMENTS-->
+
+    <string name="date">الاثنين 14 يونيو</string>
+    <string name="tableau">جدول التوافق</string>
+    <string name="allgp">فصائل الدم</string>
+
+
+
+
+
+    <!--CHIP NAVIGATION-->
+
+
+</resources>

@@ -85,17 +85,24 @@ public class Home<mDatabase> extends AppCompatActivity {
         mRoot = FirebaseStorage.getInstance().getReference();
       //  mDatabase = database.getReference(USERS);
         //mDBase = FirebaseDatabase.getInstance();
-      mDatabase=  FirebaseDatabase.getInstance();
+        mDatabase=  FirebaseDatabase.getInstance();
         mGetReference = mDatabase.getReference(USERS);
 
 
         username = getIntent().getStringExtra("nom");
+
         userpassword = getIntent().getStringExtra("password");
+
         useraddress = getIntent().getStringExtra("address");
+
         userphone = getIntent().getStringExtra("phonenumber");
+
         userBloodG = getIntent().getStringExtra("groupeS");
+
         userweight = getIntent().getStringExtra("weight");
+
         userage = getIntent().getStringExtra("age");
+
         url = getIntent().getStringExtra("profile");
 
 
