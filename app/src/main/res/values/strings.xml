@@ -50,7 +50,9 @@
 
     <!--CHIP NAVIGATION-->
 
-
+    <!--Page Profil-->
+    <string name="phoneuserprofil">Phone Number</string>
+    <string name="bloodprofil">User Blood Group</string>
 
 
 </resources>

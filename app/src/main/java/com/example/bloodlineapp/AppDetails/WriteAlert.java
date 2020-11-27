@@ -31,13 +31,13 @@ public class WriteAlert extends AppCompatActivity {
     EditText text_alert;
     Button publish;
     CardView cardView;
-     String username,url;
+    String username, url,userBloodG,userage,userweight,userpassword,useraddress,userphone;
 
    // private Button Bmoins, Bplus, Amoins, Aplus, Oplus, Omoins, ABplus, ABmoins;
 
     private static final String ALERTS = "alerts";
 
-     String alert , date, blood;
+     String alert , date, blood,fullnName,profile;
 
     private FirebaseAuth mAuth; //Create an instance of FirebaseAuth
 
@@ -52,6 +52,19 @@ public class WriteAlert extends AppCompatActivity {
         setContentView(R.layout.activity_write_alert);
 
         username = getIntent().getStringExtra("nom");
+
+        userpassword = getIntent().getStringExtra("password");
+
+        useraddress = getIntent().getStringExtra("address");
+
+        userphone = getIntent().getStringExtra("phonenumber");
+
+        userBloodG = getIntent().getStringExtra("groupeS");
+
+        userweight = getIntent().getStringExtra("weight");
+
+        userage = getIntent().getStringExtra("age");
+
         url = getIntent().getStringExtra("profile");
 
         text_alert = findViewById(R.id.makerequest);
@@ -137,6 +150,14 @@ public class WriteAlert extends AppCompatActivity {
             //displaying a success toast
             Toast.makeText(this, "Alert added", Toast.LENGTH_LONG).show();
             Intent publish = new Intent(WriteAlert.this, Home.class);
+            publish.putExtra("nom", username);
+            publish.putExtra("profile",url);
+            publish.putExtra("address",useraddress);
+            publish.putExtra("password",userpassword);
+            publish.putExtra("groupeS",userBloodG);
+            publish.putExtra("weight",userweight);
+            publish.putExtra("age",userage);
+            publish.putExtra("phonenumber",userphone);
             startActivity(publish);
 
         }

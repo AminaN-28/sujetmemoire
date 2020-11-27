@@ -84,6 +84,7 @@ dependencies {
 
 
 
+
         // ...
 
         // Import the Firebase BoM
@@ -98,5 +99,8 @@ dependencies {
         // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
         implementation 'com.google.firebase:firebase-auth'
         implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:7.0.4'
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+
 
 }

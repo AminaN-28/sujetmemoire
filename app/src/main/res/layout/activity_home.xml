@@ -14,49 +14,37 @@
 
     <RelativeLayout
         android:id="@+id/lineimg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
         android:gravity="center"
-        android:layout_marginLeft="155dp"
 
         >
-
         <ImageView
             android:id="@+id/img"
-            android:layout_width="107dp"
+            android:layout_width="wrap_content"
             android:layout_height="101dp"
-            android:src="@drawable/images"
+            android:src="@drawable/accueil"
             />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lineimg"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:layout_marginLeft="90dp"
-        android:id="@+id/textAbove"
-        >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="times"
             android:text="@string/app_name"
+            android:layout_centerInParent="true"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#CD1616"
+            android:layout_below="@+id/img"
             android:textSize="30dp"
             android:textStyle="bold"
-            />
-
+            android:layout_margin="15dp"/>
     </RelativeLayout>
+
+
 
 <RelativeLayout android:layout_height="wrap_content"
     android:layout_width="wrap_content"
-    android:layout_below="@+id/textAbove"
+    android:layout_below="@+id/lineimg"
+    android:layout_marginTop="56dp"
     >
 
 
@@ -86,24 +74,27 @@
             app:menu="@menu/drawermenu">
 
             </com.google.android.material.navigation.NavigationView>
-        </androidx.drawerlayout.widget.DrawerLayout>
 
-    </RelativeLayout>
-    <RelativeLayout android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:id="@+id/btmmm"
-        android:layout_alignParentBottom="true">
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/rounded"
-        android:elevation="16dp"
-        android:padding="8dp"
-        app:cnb_unselectedColor="@color/white"
-        app:cnb_menuResource="@menu/menu"
-        />
+        <RelativeLayout
+            android:id="@+id/btmmm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.ismaeldivita.chipnavigation.ChipNavigationBar
+                android:id="@+id/bottom_nav"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/rounded"
+                android:elevation="16dp"
+                android:padding="8dp"
+                app:cnb_menuResource="@menu/menu"
+                app:cnb_unselectedColor="@color/white" />
+
+
+        </RelativeLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
     </RelativeLayout>
 
 

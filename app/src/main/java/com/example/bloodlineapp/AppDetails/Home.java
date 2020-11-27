@@ -1,7 +1,6 @@
 package com.example.bloodlineapp.AppDetails;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,15 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bloodlineapp.Login.User;
 import com.example.bloodlineapp.Models.Alert;
 import com.example.bloodlineapp.Models.AlertAdapter;
 import com.example.bloodlineapp.Onboarding.MainActivity;
 import com.example.bloodlineapp.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,10 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
-
-import static com.example.bloodlineapp.Login.Login.ImageUri;
 
 public class Home<mDatabase> extends AppCompatActivity {
 
@@ -64,11 +57,12 @@ public class Home<mDatabase> extends AppCompatActivity {
 
     private FirebaseUser mCurrentUser;//for member variable
 
-    DatabaseReference mGetReference;
+    DatabaseReference mGetReference ,alertGetref;
     FirebaseDatabase mDatabase ;
 
     String username, url,userBloodG,userage,userweight,userpassword,useraddress,userphone;
     private static final String USERS = "users";
+    private static final String ALERTS = "alerts";
 
 
     @Override
@@ -87,6 +81,7 @@ public class Home<mDatabase> extends AppCompatActivity {
         //mDBase = FirebaseDatabase.getInstance();
         mDatabase=  FirebaseDatabase.getInstance();
         mGetReference = mDatabase.getReference(USERS);
+        alertGetref = mDatabase.getReference(ALERTS);
 
 
         username = getIntent().getStringExtra("nom");
@@ -106,13 +101,13 @@ public class Home<mDatabase> extends AppCompatActivity {
         url = getIntent().getStringExtra("profile");
 
 
+
         //Add data to firebase database
          String id = mGetReference.push().getKey(); //donner une clé d'identification au user
 
-        saveInFBStorage(id);
-        User user = new User( username, useraddress, userphone, userpassword, userBloodG, userweight, userage, url);
-        mGetReference.child(id).setValue(user);
-        mGetReference.child(mCurrentUser.getUid()).setValue(user);
+       // User user = new User( username, useraddress, userphone, userpassword, userBloodG, userweight, userage, url);
+    //    mGetReference.child(id).setValue(user);
+//        mGetReference.child(mCurrentUser.getUid()).setValue(user);
 
         mdrawer = findViewById(R.id.drawer);
 
@@ -163,6 +158,14 @@ public class Home<mDatabase> extends AppCompatActivity {
                    case R.id.profil:
                         Toast.makeText(Home.this,"Profil",Toast.LENGTH_LONG).show();
                         Intent secondintent = new Intent(Home.this,Profil.class);
+                        secondintent.putExtra("nom", username);
+                        secondintent.putExtra("profile",url);
+                        secondintent.putExtra("address",useraddress);
+                        secondintent.putExtra("password",userpassword);
+                        secondintent.putExtra("groupeS",userBloodG);
+                        secondintent.putExtra("weight",userweight);
+                        secondintent.putExtra("age",userage);
+                        secondintent.putExtra("phonenumber",userphone);
                         startActivity(secondintent);
                         return true;
 
@@ -215,7 +218,13 @@ public class Home<mDatabase> extends AppCompatActivity {
                          Toast.makeText(Home.this, "Make Request", Toast.LENGTH_LONG).show();
                          Intent chipRequest = new Intent(Home.this, WriteAlert.class);
                          chipRequest.putExtra("nom", username);
-                         chipRequest.putExtra("profile", url);
+                         chipRequest.putExtra("profile",url);
+                         chipRequest.putExtra("address",useraddress);
+                         chipRequest.putExtra("password",userpassword);
+                         chipRequest.putExtra("groupeS",userBloodG);
+                         chipRequest.putExtra("weight",userweight);
+                         chipRequest.putExtra("age",userage);
+                         chipRequest.putExtra("phonenumber",userphone);
                          startActivity(chipRequest);
                          break;
                      case R.id.notif:
@@ -251,7 +260,7 @@ public class Home<mDatabase> extends AppCompatActivity {
                         // Get new FCM registration token
                         token = task.getResult();
                        FirebaseUser user = mAuth.getCurrentUser();
-                        insertTokenTofirebase(user);
+                      insertTokenTofirebase(user);
                             // Log and toast
                         //  String msg = getString(R.string.msg_token_fmt, token);
                         Log.d("TAG2", "token");
@@ -260,37 +269,13 @@ public class Home<mDatabase> extends AppCompatActivity {
                 });
 
     }
-   public void insertTokenTofirebase(FirebaseUser user){
+  public void insertTokenTofirebase(FirebaseUser user){
         String key = mGetReference.push().getKey();
-        mGetReference.child("users").child(user.getUid()).child("token").setValue(token);
-        mGetReference.child(key).setValue(user); //adding token info to user tabl
+       mGetReference.child(user.getUid()).child("token").setValue(token);
+      // mGetReference.child(key).setValue(user); //adding token info to user table
 
     }
 
-    public void saveInFBStorage(final String id){
-
-        mRoot.child("userProfile").child(id).putFile(ImageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        mRoot.child("userProfile").child(id).getDownloadUrl()
-                                .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Uri> task) {
-                                        url = task.getResult().toString();
-                                    }
-                                });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-
-                    }
-                });
-    }
 
     @Override
    protected void onStart() {

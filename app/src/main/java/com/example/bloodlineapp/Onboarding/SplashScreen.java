@@ -75,11 +75,13 @@ public class SplashScreen extends AppCompatActivity {
                     Intent login = new Intent(SplashScreen.this, Home.class);
                     startActivity(login);
 
+                    finish();
                 }
                 else
                 {
                     Intent sign = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(sign);
+                    finish();
                 }
 
 

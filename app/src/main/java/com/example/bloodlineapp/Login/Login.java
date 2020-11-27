@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -21,10 +22,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bloodlineapp.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.InputStream;
 import java.util.Locale;
@@ -124,6 +130,7 @@ public class Login extends AppCompatActivity {
                    logInt.putExtra("age", userage.getText().toString());
                    logInt.putExtra("weight", userweight.getText().toString());
                    logInt.putExtra("profile", userprofile);
+                   uploadtofirebase();
 
                     //logInt.putExtra("string",verificationId);
                     //logInt.putExtra("forcing",token);
@@ -328,5 +335,35 @@ public class Login extends AppCompatActivity {
         String lang = preferences.getString("My Language","");
         setLocale(lang);
     }
+
+    private void uploadtofirebase()
+    {
+       /* final ProgressDialog dialog=new ProgressDialog(this);
+        dialog.setTitle("File Uploader");
+        dialog.show();*/
+
+
+        FirebaseStorage storage=FirebaseStorage.getInstance();
+        StorageReference uploader=storage.getReference().child("userProfile");
+        uploader.putFile(ImageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+                {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                    {
+                     //  dialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"File Uploaded",Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot)
+                    {
+                        float percent=(100*taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
+                       // dialog.setMessage("Uploaded :"+(int)percent+" %");
+                    }
+                });
+    }
+
 
 }
