@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -14,25 +13,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bloodlineapp.R;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.StorageTask;
 
-import java.io.InputStream;
 import java.util.Locale;
 
 
@@ -64,8 +58,13 @@ public class Login extends AppCompatActivity {
     private final int REQUEST_CODE = 100;
 
     public static Uri ImageUri;
+    //Alert alert;
+
+    StorageReference storageReference;
+    private StorageTask uploadTask;
 
     Bitmap bitmap;
+
 
 
 
@@ -74,21 +73,24 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        user = new User();
+        storageReference= FirebaseStorage.getInstance().getReference("UsersProfiles");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("alerts");
 
-        changelang = findViewById(R.id.button1);
 
-        changelang.setOnClickListener(new View.OnClickListener() {
+
+       /* changelang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Show AlertDialog to display list of languages , one only can be selected
                 showChangeLangageDialog();
 
             }
-        });
+        });*/
 
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.app_name));
+       // ActionBar actionBar = getSupportActionBar();
+//        actionBar.setTitle(getResources().getString(R.string.app_name));
 
 
         next = findViewById(R.id.button);
@@ -120,7 +122,7 @@ public class Login extends AppCompatActivity {
                     age = userage.getText().toString();
                     weight = userweight.getText().toString();
                     phone = userPhone.getText().toString();//convertir le numero en string
-                    userprofile =profile.getResources().toString();
+                    //userprofile =profile.getResources().toString();
                    Intent logInt = new Intent(Login.this, OTPVerify.class);
                    logInt.putExtra("nom", userName.getText().toString());
                    logInt.putExtra("phonenumber", userPhone.getText().toString());
@@ -130,12 +132,13 @@ public class Login extends AppCompatActivity {
                    logInt.putExtra("age", userage.getText().toString());
                    logInt.putExtra("weight", userweight.getText().toString());
                    logInt.putExtra("profile", userprofile);
-                   uploadtofirebase();
+                    //UploadToFireBase();
 
                     //logInt.putExtra("string",verificationId);
-                    //logInt.putExtra("forcing",token);
-                   startActivity(logInt);
-                   finish();
+                    // logInt.putExtra("forcing",token);
+
+                    startActivity(logInt);
+                    finish();
 
                 }
             }
@@ -259,9 +262,10 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK  && data != null){
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK  && data != null && data.getData()!= null){
             ImageUri = data.getData();
-            try
+            profile.setImageURI(ImageUri);
+          /*  try
             {
                 InputStream inputStream=getContentResolver().openInputStream(ImageUri);
                 bitmap= BitmapFactory.decodeStream(inputStream);
@@ -270,10 +274,49 @@ public class Login extends AppCompatActivity {
             catch (Exception e)
             {
 
-            }
+            }*/
         }
+
+    }
+    /*private void UploadToFireBase(){
+        String imageid;
+        imageid =System.currentTimeMillis()+"."+getExtension(ImageUri);
+        user.setFullName(userName.getText().toString().trim());
+        user.setAddress(city.getText().toString().trim());
+        user.setWeight(userweight.getText().toString().trim());
+        user.setPhone(userPhone.getText().toString().trim());
+        user.setAge(userage.getText().toString().trim());
+        user.setPassword(userpassword.getText().toString().trim());
+        user.setBlood(bloodg.getText().toString().trim());
+        user.setUrl(imageid);
+        //mDatabase.push().setValue(user);
+
+        StorageReference reference = storageReference.child(imageid);
+        reference.putFile(ImageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                       // Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                        Toast.makeText(Login.this, "Image Successfully Update", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                    }
+                });
     }
 
+    private String getExtension(Uri uri){
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+*/
 
     private void showChangeLangageDialog() {
         final String [] list = {"French", "Català", "جزائري", "موريتاني", "English Us"};
@@ -336,34 +379,6 @@ public class Login extends AppCompatActivity {
         setLocale(lang);
     }
 
-    private void uploadtofirebase()
-    {
-       /* final ProgressDialog dialog=new ProgressDialog(this);
-        dialog.setTitle("File Uploader");
-        dialog.show();*/
-
-
-        FirebaseStorage storage=FirebaseStorage.getInstance();
-        StorageReference uploader=storage.getReference().child("userProfile");
-        uploader.putFile(ImageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
-                {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
-                    {
-                     //  dialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"File Uploaded",Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot)
-                    {
-                        float percent=(100*taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount();
-                       // dialog.setMessage("Uploaded :"+(int)percent+" %");
-                    }
-                });
-    }
 
 
 }

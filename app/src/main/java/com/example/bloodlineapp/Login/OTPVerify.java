@@ -1,13 +1,19 @@
 package com.example.bloodlineapp.Login;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chaos.view.PinView;
@@ -27,11 +33,12 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class OTPVerify extends AppCompatActivity {
 
-    Button Verifybtn;
+    Button Verifybtn, changelang;//BOUTON POUR ENVOYER AUSSI
     private PinView pinView;
 
 
@@ -69,6 +76,19 @@ public class OTPVerify extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.otpverify);
 
+
+         //changelang = findViewById(R.id.button1);
+
+/*        changelang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Show AlertDialog to display list of languages , one only can be selected
+                showChangeLangageDialog();
+
+            }
+        });*/
+
+
         Verifybtn = findViewById(R.id.buttonotp);
         pinView = findViewById(R.id.pinView);
 
@@ -78,7 +98,6 @@ public class OTPVerify extends AppCompatActivity {
         mAuth =FirebaseAuth.getInstance();
 
 
-        userprofile = getIntent().getStringExtra("profile");
 
 
         Verifybtn.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +134,9 @@ public class OTPVerify extends AppCompatActivity {
        userBloodG = getIntent().getStringExtra("groupeS");
        userweight = getIntent().getStringExtra("weight");
        userage = getIntent().getStringExtra("age");
+        userprofile = getIntent().getStringExtra("profile");
+
+
         Log.d("builbi","After");
          Log.d("pika",userphone);
 
@@ -151,37 +173,30 @@ public class OTPVerify extends AppCompatActivity {
                             gohome.putExtra("weight",userweight);
                             gohome.putExtra("age",userage);
                             gohome.putExtra("phonenumber",userphone);
+
                             User user = new User( username, useraddress, userphone, userpassword, userBloodG, userweight, userage, userprofile);
                             mDatabase.child(mAuth.getUid()).setValue(user);
+
                             startActivity(gohome);
+                            finish();
 
                             FirebaseUser users = task.getResult().getUser();
 
                             // ...
-                        } else {
+                        }
+                        else {
                             // Sign in failed, display a message and update the UI
                             Log.w("Pokemon2", "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
+                                Toast.makeText(OTPVerify.this,"Incorrect OTP",Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     }
                 });
     }
 
-//    @Override
-//    protected void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putString(KEY_VERIFICATION_ID,mverificationId);
-//
-//    }
-//
-//    @Override
-//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        mverificationId = savedInstanceState.getString(KEY_VERIFICATION_ID);
-//
-//    }
 
     @Override
     protected void onStart() {
@@ -243,4 +258,68 @@ public class OTPVerify extends AppCompatActivity {
         Verify();
 
     }
+
+    private void showChangeLangageDialog() {
+        final String [] list = {"French", "Català", "جزائري", "موريتاني", "English Us"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(OTPVerify.this);
+        mBuilder.setTitle("Choose Language.....");
+        mBuilder.setSingleChoiceItems(list, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0){
+                    setLocale("fr");
+                    recreate();
+                }
+                else if (which == 1){
+                    setLocale("ca");
+                    recreate();
+                }
+                else if (which == 2){
+                    setLocale("ar");
+                    recreate();
+                }
+                else if (which == 3){
+                    setLocale("ar");
+                    recreate();
+                }
+                else
+                {
+                    setLocale("en");
+                    recreate();
+                }
+
+                //dismiss alertwhen item selected
+
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = mBuilder.create();
+
+        alertDialog.show();
+
+    }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale =locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+
+        //saved data to shared preferences
+        SharedPreferences.Editor editor =  getSharedPreferences("Settinngs", MODE_PRIVATE).edit();
+        editor.putString("My Language", language);
+        editor.apply();
+    }
+
+    public void loadLocale(){
+        SharedPreferences preferences = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String lang = preferences.getString("My Language","");
+        setLocale(lang);
+    }
+
+
+
 }
