@@ -177,28 +177,7 @@ import java.util.TimeZone;
             //  text_alert.setText("");
 
 
-        //Read alert to Database
-            DatabaseReference data = FirebaseDatabase.getInstance().getReference();
-            final DatabaseReference alertRef = data.child(ALERTS).child(mAuth.getUid());
-            alertRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String getdata = (String) snapshot.getValue();
-
-                    //displaying a success toast
-                    //Toast.makeText(WriteAlert.this, getdata, Toast.LENGTH_LONG).show();
-                    //notification();
-
-                    Intent publish = new Intent(WriteAlert.this, Home.class);
-                    publish.putExtra("nom", username);
-                    publish.putExtra("profile",url);
-                    publish.putExtra("address",useraddress);
-                    publish.putExtra("password",userpassword);
-                    publish.putExtra("groupeS",userBloodG);
-                    publish.putExtra("weight",userweight);
-                    publish.putExtra("age",userage);
-                    publish.putExtra("phonenumber",userphone);
-                    //Read Data from Data Base
+         //Read Data from Data Base
                     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                     final DatabaseReference userRef = rootRef.child(USERS);
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -222,7 +201,30 @@ import java.util.TimeZone;
                         }
                     });
                     // Log.v("ALERTID", alertRef.getKey());
+ 
+         
+        //Read alert to Database
+            DatabaseReference data = FirebaseDatabase.getInstance().getReference();
+            final DatabaseReference alertRef = data.child(ALERTS).child(mAuth.getUid());
+            alertRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String getdata = (String) snapshot.getValue();
 
+                    //displaying a success toast
+                    //Toast.makeText(WriteAlert.this, getdata, Toast.LENGTH_LONG).show();
+                    //notification();
+
+                    Intent publish = new Intent(WriteAlert.this, Home.class);
+                    publish.putExtra("nom", username);
+                    publish.putExtra("profile",url);
+                    publish.putExtra("address",useraddress);
+                    publish.putExtra("password",userpassword);
+                    publish.putExtra("groupeS",userBloodG);
+                    publish.putExtra("weight",userweight);
+                    publish.putExtra("age",userage);
+                    publish.putExtra("phonenumber",userphone);
+                    
                     startActivity(publish);
                     finish();
 
