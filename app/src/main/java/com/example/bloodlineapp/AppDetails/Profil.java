@@ -9,12 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.bloodlineapp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
@@ -31,6 +33,9 @@ public class Profil extends AppCompatActivity {
 
     String username, url,userBloodG,userage,userweight,userpassword,useraddress,userphone;
     private static final String USERS = "users";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class Profil extends AppCompatActivity {
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userRef = rootRef.child(USERS);
         Log.v("USERID", userRef.getKey());
+
 
         nameTxtView = findViewById(R.id.name_textview);
         agetext = findViewById(R.id.age_textview);
@@ -88,7 +94,7 @@ public class Profil extends AppCompatActivity {
                 agetext.setText(age);
                 weightTxtView.setText(weight);
                 phoneTxtView.setText(phone);
-                userImageView.setImageURI(Uri.parse(img));
+                Picasso.get().load(img).into(userImageView);
             }
 
             @Override

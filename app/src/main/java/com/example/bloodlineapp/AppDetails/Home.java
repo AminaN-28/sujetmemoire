@@ -1,23 +1,30 @@
 package com.example.bloodlineapp.AppDetails;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ScrollView;
-import android.widget.Toast;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bloodlineapp.Models.Alert;
 import com.example.bloodlineapp.Models.AlertAdapter;
+import com.example.bloodlineapp.Models.ViewHolder;
 import com.example.bloodlineapp.Onboarding.MainActivity;
 import com.example.bloodlineapp.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,30 +34,26 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-public class Home<mDatabase> extends AppCompatActivity {
+public class Home<mDatabase> extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout mdrawer;
-
-    private  ActionBarDrawerToggle mToggle;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolbar;
+    private Menu menu;
 
     private NavigationView navDrawer;
 
     private ChipNavigationBar chipNavigationBar;
 
-    private ScrollView scrollView;
 
     String token;
 
     FirebaseAuth mAuth;
 
     StorageReference mRoot;
-    //commentez la liste view apres.
-   // ListView listViews;
-    //ArrayList<Alert> arrayList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private AlertAdapter adapter;
@@ -65,24 +68,25 @@ public class Home<mDatabase> extends AppCompatActivity {
     private static final String ALERTS = "alerts";
 
 
+    //private RequestQueue mRequestQue;
+
+
+
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
 
-
         mAuth= FirebaseAuth.getInstance();//initialisation of instance
         mCurrentUser = mAuth.getCurrentUser();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mRoot = FirebaseStorage.getInstance().getReference();
-      //  mDatabase = database.getReference(USERS);
-        //mDBase = FirebaseDatabase.getInstance();
-        mDatabase=  FirebaseDatabase.getInstance();
-        mGetReference = mDatabase.getReference(USERS);
-        alertGetref = mDatabase.getReference(ALERTS);
 
+        mDatabase=  FirebaseDatabase.getInstance();
+
+        mGetReference = mDatabase.getReference(USERS);
 
         username = getIntent().getStringExtra("nom");
 
@@ -98,111 +102,46 @@ public class Home<mDatabase> extends AppCompatActivity {
 
         userage = getIntent().getStringExtra("age");
 
-        url = getIntent().getStringExtra("profile");
-
-
+       // url = getIntent().getStringExtra("profile");
 
         //Add data to firebase database
          String id = mGetReference.push().getKey(); //donner une clé d'identification au user
 
-       // User user = new User( username, useraddress, userphone, userpassword, userBloodG, userweight, userage, url);
-    //    mGetReference.child(id).setValue(user);
-//        mGetReference.child(mCurrentUser.getUid()).setValue(user);
 
-        mdrawer = findViewById(R.id.drawer);
 
-        navDrawer = findViewById(R.id.drawernav);
+//Canal de notification
+       // notification();
+
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        alertGetref = database.getReference(ALERTS);
 
         chipNavigationBar = findViewById(R.id.bottom_nav);
 
-        mToggle = new ActionBarDrawerToggle(this,mdrawer,R.string.open ,R.string.close);
-        mdrawer.addDrawerListener(mToggle);
-        mToggle.syncState();
+
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar=findViewById(R.id.toolbar);
 
 
-
-
-        FirebaseRecyclerOptions<Alert> options =
-                new FirebaseRecyclerOptions.Builder<Alert>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("alerts"), Alert.class)
-                        .build();
-
-        adapter = new AlertAdapter(options);
-        recyclerView.setAdapter(adapter);
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle;
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.getDrawerArrowDrawable().setColor(R.color.colorAccent);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
         // FirebaseMessaging.getInstance().setAutoInitEnabled(true);
         Handler handler =  new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
               token();
-
             }
         }, 2000);
-
-
-
-        //DrawerLayout item clickable
-         navDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                   case R.id.db:
-                       Toast.makeText(Home.this,"Dashboared",Toast.LENGTH_LONG).show();
-                       Intent firstintent = new Intent(Home.this, Dashboared.class);
-                       startActivity(firstintent);
-                       return true;
-
-                   case R.id.profil:
-                        Toast.makeText(Home.this,"Profil",Toast.LENGTH_LONG).show();
-                        Intent secondintent = new Intent(Home.this,Profil.class);
-                        secondintent.putExtra("nom", username);
-                        secondintent.putExtra("profile",url);
-                        secondintent.putExtra("address",useraddress);
-                        secondintent.putExtra("password",userpassword);
-                        secondintent.putExtra("groupeS",userBloodG);
-                        secondintent.putExtra("weight",userweight);
-                        secondintent.putExtra("age",userage);
-                        secondintent.putExtra("phonenumber",userphone);
-                        startActivity(secondintent);
-                        return true;
-
-
-                   case R.id.event :
-                       Toast.makeText(Home.this,"Event",Toast.LENGTH_LONG).show();
-                       Intent thirdintent = new Intent(Home.this,Event.class);
-                       startActivity(thirdintent);
-                       return true;
-
-
-
-                   case   R.id.carte:
-                       Intent fiveintent = new Intent(Home.this,MapsActivity.class);
-                       startActivity(fiveintent);
-                       return true;
-
-                  case  R.id.parametres:
-                      Toast.makeText(Home.this,"Parametres et Confidentialites",Toast.LENGTH_LONG).show();
-//                      Intent sixintent = new Intent(Home.this, Parameters.class);
-                      //startActivity(sixintent);
-                      return true;
-
-                  case R.id.deconnexion:
-                      Toast.makeText(Home.this,"LogOut",Toast.LENGTH_LONG).show();
-                      Intent sevenintent = new Intent(Home.this, MainActivity.class);
-                      startActivity(sevenintent);
-                      finish();
-                      return true;
-                }
-                return true;
-            }
-         });
-
-
-
-
 
 
         //Make chipNavigation clickable
@@ -215,10 +154,9 @@ public class Home<mDatabase> extends AppCompatActivity {
                 {
 
                      case R.id.request:
-                         Toast.makeText(Home.this, "Make Request", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(Home.this, "Make Request", Toast.LENGTH_LONG).show();
                          Intent chipRequest = new Intent(Home.this, WriteAlert.class);
                          chipRequest.putExtra("nom", username);
-                         chipRequest.putExtra("profile",url);
                          chipRequest.putExtra("address",useraddress);
                          chipRequest.putExtra("password",userpassword);
                          chipRequest.putExtra("groupeS",userBloodG);
@@ -227,25 +165,21 @@ public class Home<mDatabase> extends AppCompatActivity {
                          chipRequest.putExtra("phonenumber",userphone);
                          startActivity(chipRequest);
                          break;
-                     case R.id.notif:
+                     /*case R.id.notif:
                          Toast.makeText(Home.this, "See Notifications", Toast.LENGTH_LONG).show();
-                         Intent chipNotif = new Intent(Home.this, NotificatonAct.class);
-                         startActivity(chipNotif);
-                         break;
+                         //Intent chipNotif = new Intent(Home.this, NotificatonAct.class);
+                         //startActivity(chipNotif);
+                         break;*/
                 }
-
-                    }
+            }
         });
 
+
+
+        
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 
     public void token(){
         FirebaseMessaging.getInstance().getToken()
@@ -260,11 +194,13 @@ public class Home<mDatabase> extends AppCompatActivity {
                         // Get new FCM registration token
                         token = task.getResult();
                        FirebaseUser user = mAuth.getCurrentUser();
+                        //User users = new User( username, useraddress, userphone, userpassword, userBloodG, userweight, userage, userprofile);
                       insertTokenTofirebase(user);
                             // Log and toast
                         //  String msg = getString(R.string.msg_token_fmt, token);
+                        
                         Log.d("TAG2", "token");
-                        Toast.makeText( Home.this, "Home", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText( Home.this, "Home", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -276,18 +212,93 @@ public class Home<mDatabase> extends AppCompatActivity {
 
     }
 
-
     @Override
    protected void onStart() {
        super.onStart();
-       adapter.startListening();
+
+       FirebaseRecyclerOptions<Alert> option2 =
+               new FirebaseRecyclerOptions.Builder<Alert>()
+               .setQuery(alertGetref , Alert.class)
+               .build();
+
+        FirebaseRecyclerAdapter<Alert , ViewHolder> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<Alert, ViewHolder>(option2) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Alert model) {
+
+                        holder.setDetails(getApplicationContext(), model.getUrl(), model.getFullname(), model.getAlert() , model.getBloodneeded(), model.getDatealert());
+                        String fullname = getItem(position).getFullname();
+                        String alert = getItem(position).getAlert();
+                        String date = getItem(position).getDatealert();
+                        String blood = getItem(position).getBloodneeded();
+                        String url = getItem(position).getUrl();
+
+                    }
+
+                    @NonNull
+                    @Override
+                    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.singlerow, parent,false);
+
+                        return new ViewHolder(view);
+                    }
+                };
+            firebaseRecyclerAdapter.startListening();
+            recyclerView.setAdapter(firebaseRecyclerAdapter);
+
    }
 
+
     @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+
+            case R.id.profil:
+                //Toast.makeText(Home.this,"Profil",Toast.LENGTH_LONG).show();
+                Intent secondintent = new Intent(Home.this,Profil.class);
+                secondintent.putExtra("nom", username);
+                secondintent.putExtra("address",useraddress);
+                secondintent.putExtra("password",userpassword);
+                secondintent.putExtra("groupeS",userBloodG);
+                secondintent.putExtra("weight",userweight);
+                secondintent.putExtra("age",userage);
+                secondintent.putExtra("phonenumber",userphone);
+                startActivity(secondintent);
+                return true;
+
+
+            case R.id.event :
+                //Toast.makeText(Home.this,"Event",Toast.LENGTH_LONG).show();
+                Intent thirdintent = new Intent(Home.this,Event.class);
+                startActivity(thirdintent);
+                return true;
+
+
+
+            case   R.id.carte:
+                Intent fiveintent = new Intent(Home.this,MapsActivity.class);
+                startActivity(fiveintent);
+                return true;
+
+
+            case R.id.deconnexion:
+                //Toast.makeText(Home.this,"LogOut",Toast.LENGTH_LONG).show();
+                Intent sevenintent = new Intent(Home.this, MainActivity.class);
+                startActivity(sevenintent);
+                finish();
+                return true;
+
+        }
+        return true;
     }
+
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
 
 }
 
